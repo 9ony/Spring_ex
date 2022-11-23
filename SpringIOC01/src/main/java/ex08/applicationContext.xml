@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 자바 빈 -> xml 빈으로 변경 -->
+	<!-- 자바로 설정한 객체를  xml로 가져오려면 beans루트 엘리먼트에 context 네임스페이스를 추가해야 한다.
+			xmlns:context="http://www.springframework.org/schema/context"
+			
+			xsi:schemaLocation속성 값에도
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd"
+			추가
+	 -->
+	<context:annotation-config/>
+	<!-- <context:annotation-config/> 는 등록된 빈들의 어노테이션을 활성화시키기 위해 사용된다. -->
+	
+	<bean id="config" class="ex08.Config"/>
+	<bean id="emp" class="ex08.Emp">
+		<constructor-arg index="0" value="홍길동"/>
+		<constructor-arg index="1" value="기획부"/>
+		<constructor-arg index="2"  value="6000"/>
+	</bean>
+	
+	<!-- ServiceImpl빈 등록한 뒤 Config에서 생성한 e1빈을 주입해보세요 -->
+	<bean id="svc" class="ex08.ServiceImpl">
+		<property name="emp" ref="e1"/>
+	</bean>
+</beans>

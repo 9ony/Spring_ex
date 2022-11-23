@@ -37,6 +37,7 @@ local.properties
 
 # sbteclipse plugin
 .target
+target/
 
 # Tern plugin
 .tern-project
@@ -62,3 +63,7 @@ local.properties
 Servers/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
+
+#SPRINGIOC01 예제 파일 제외
+admin.properties
+실습예제.txt

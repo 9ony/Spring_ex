@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	<!-- [1] ServiceImpl빈을 생성하고 List를 setter 주입해보자 -->
+	<bean id="s1" class="ex06.ServiceImpl">
+		<property name="list">
+			<list>
+				<value>Java</value>
+				<value>JavaScript</value>
+				<value>Spring</value>
+				<value>Mybatis</value>
+			</list>		
+		</property>
+	</bean>
+	<!-- [1] List 객체
+		List<String< list-new ArrayList();
+		list.add("java);...
+	
+		ServiceImpl s1=new ServiceImpl();
+		s1.setList(list);
+	 -->
+	 
+	 <bean id="s2" class="ex06.ServiceImpl">
+	 	<property name="map">
+	 		<map>
+		 		<entry> <!-- Map 자료구조의 빈은 엔트리 안에 <Key>.<value>에 키값 , <value>에 밸류값을 주입해준다 -->
+		 			<key>
+		 				<value>Age</value>
+		 			</key>
+		 			<value>22</value>
+		 		</entry>
+		 		<entry key="Salary" value="5000"/>
+		 		<entry key="BirthYear" value="1988"/>
+	 		</map>
+	 	</property>
+	 </bean>
+	 <!-- [2] Map 객체
+		Map<String,Integer> map=new HashMap<>();
+		map.put("Age",22);
+		map.put("Salary",5000);
+		map.put("BirthYear",5000);
+		
+		ServiceImpl s2=new ServiceImpl();
+		s2.setMap(map);
+	-->
+	 <bean id="s3" class="ex06.ServiceImpl">
+	 	<property name="set">
+	 		<set>
+	 			<value>Oracle</value>
+	 			<value>MySQL</value>
+	 			<value>SQL Server</value>
+	 		</set>
+	 	</property>
+	 </bean>
+	 <!--[3] Set객체
+		Set<String> set=new HashSet<>();
+		set.add("Oracle")...
+		....
+		ServiceImpl s3=new ServiceImpl();
+		s3.setSet(set);
+	-->
+	 <bean id="s4" class="ex06.ServiceImpl">
+	 	<property name="prop">
+	 		<props>
+	 			<prop key="user">multi</prop>
+	 			<prop key="passwd">tiger</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	 <!--  
+		[4] Properties 객체
+		Properties prop=new Properties();
+		prop.setProperty("user","multi");...
+		...
+		ServiceImpl s4=new ServiceImpl();
+		s4.setProp(prop);
+	-->
+	 
+</beans>
+	

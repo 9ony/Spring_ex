@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- properties파일을 참조하려면 context네임스페이스 추가해야함 -->
+	<!-- src/main/resources에 생성한 프로퍼티지파일은 클래스파일이 생성된 경로(target/classes/)에 자동으로 생성된다 그래서 경로 = classpath: 접두어붙임
+		classpath = target/classes/에 생성된 파일 경로
+	-->
+	<context:property-placeholder location="classpath:admin.properties"/>
+	
+	
+	<bean id="admin1" class="ex11.AdminVO">
+		<property name="adminId" value="${adminId}"/>
+		<property name="adminPwd" value="${adminPwd}"/>
+	</bean>
+	<!-- 위와 같은 의미 위에는 프로퍼티지의 키값을 참조해서 밸류값을 가져옴 -->
+	<bean id="admin2" class="ex11.AdminVO">
+		<property name="adminId" value="scott"/>
+		<property name="adminPwd" value="tiger"/>
+	</bean>
+</beans>
