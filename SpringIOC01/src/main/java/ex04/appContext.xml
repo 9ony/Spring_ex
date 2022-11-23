@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	<!-- MessageImpl 빈을 등록하세요 id="mb1" -->
+	<!-- greeting과 name값을 주입(injection)해보자
+		[1] setter injection ====>이것을 해보자
+		[2] constructor injection
+		
+		mb1 객체에 Date객체와 Random객체를 setter로 주입
+	 -->
+	<bean id="mb1" class="ex04.MessageImpl">
+		<property name="greeting">
+			<value>즐거운 하루 되세요</value> <!-- 하위에 준것 -->
+		</property>
+		<property name="name" value="king"/> <!-- 속성으로 준것 -->
+			<!-- 프로퍼티에 속성으로 밸류를 줘도 되고 하위에 밸류를 줘도됨 -->
+			<!-- String과 int는 value에 바로 줘도되지만 -->
+			<!-- Date나 Random같은 객체타입은 bean을 만들어서 reference로 참조해야됨 -->
+		<property name="today">
+			<ref bean="now"/>
+			<!-- 참조유형을 넣을때는 ref  -->
+		</property>
+		<property name="ran" ref="random"/>
+	</bean>
+	
+	<!-- mb2 MessageImpl빈을 하나 더 등록하세요
+		이름과 인삿말, Date, Random객체를 주입하세요
+		Hello...에서 mb2를 룩업해서 sayHello(),sayHi()호출하기 
+	-->
+	<bean id="mb2" class="ex04.MessageImpl">
+		<property name="greeting" value="안녕하세요"/>
+		<property name="name" value="길동"/> 
+		<property name="today" ref ="now"/>
+		<property name="ran" ref="random"/>
+	</bean>
+	<bean id="random" class="java.util.Random"/>
+	<bean id="now" class="java.util.Date"/>
+</beans>

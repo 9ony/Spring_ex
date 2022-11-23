@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	<!-- [1]기본 생성자를 이용해 EmpImpl빈 생성 -->
+	<bean id="e1" class="ex05.EmpImpl"/>
+
+	<!-- [2] String유형 1개(name)를 생성자를 통해 주입해보자 . Constructor Injection -->
+	<bean id="e2" class="ex05.EmpImpl">
+		<constructor-arg type="java.lang.String" index="0" value="James"/>
+	</bean>
+	
+	<!--[3] 이름, 부서명을 받아들이는 생성자를 통해 주입되도록 빈 e3를 등록하세요  -->
+	<bean id="e3" class="ex05.EmpImpl">
+		<constructor-arg index="0" type="java.lang.String"  value="Sales"/>
+		<constructor-arg index="1" type="java.lang.String"> 
+			<value>길동</value>
+		</constructor-arg>
+	</bean>
+	<!--[4] 부서,이름,급여  -->
+	<bean id="e4" class="ex05.EmpImpl">
+		<constructor-arg index="0" type="java.lang.String"  value="Sales"/>
+		<constructor-arg index="1" type="java.lang.String" value="길동"/>
+		<constructor-arg index="2" type="int" value="1000"/>
+	</bean>
+	<!--[5] Random객체를 받는 생성자 -->
+	<bean id="e5" class="ex05.EmpImpl">
+		<constructor-arg ref="random"/>
+	</bean>
+	<bean id="random" class="java.util.Random"/>
+</beans>
