@@ -14,7 +14,10 @@
 	<logger name="com.my.multiweb">
 		<level value="info" />
 	</logger>
-	
+	<!-- 컨트롤러 로그 추가 -->
+	<logger name="com.memo.controller">
+		<level value="info" />
+	</logger>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
