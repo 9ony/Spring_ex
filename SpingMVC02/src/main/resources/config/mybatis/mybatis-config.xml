@@ -3,12 +3,15 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<!-- memo -->
 	<!-- typeAlias 별칭 설정 === -->
 	<typeAliases>
 		<typeAlias type="com.memo.model.MemoVO" alias="memo"/>
+		<typeAlias type="com.user.model.UserVO" alias="user"/>
 	</typeAliases>
 	<!-- mapper 정의 -->
 	<mappers>
 		<mapper resource="config/mybatis/mapper/MemoMapper.xml"/>
+		<mapper resource="config/mybatis/mapper/UserMapper.xml"/>
 	</mappers>
 </configuration>

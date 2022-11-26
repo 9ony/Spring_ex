@@ -17,7 +17,7 @@ public class MemoDAOMybatis implements MemoDAO {
 	private final String NS="com.memo.model.MemoMapper";
 	
 	//리소스 이름으로 주입
-	@Resource(name="sqlSessionTemplateyBean")
+	@Resource(name="sqlSessionTemplateBean")
 	private SqlSessionTemplate session;
 	
 	@Override

@@ -48,9 +48,21 @@
 		<property name="configLocation" value="classpath:config/mybatis/mybatis-config.xml"></property>
 	</bean>
 	<!-- [5]SqlsessionTemplateBean 등록 -->
-	<bean id="sqlSessionTemplateyBean" class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSessionTemplateBean" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactoryBean"/>
 	</bean>
 	
 	<!-- [6]mybatis-spring:scan 설정 -->
+	
+	<!-- HikariCP 커넥션풀 빈 등록 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="${Global.DriverClassName}"/>
+		<property name="jdbcUrl" value="${Global.Url}"/>
+		<property name="username" value="${Global.Username}"/>
+		<property name="password" value="${Global.Password}"/>
+	</bean>
+	
+	<bean id="dataSource-hikari" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
 </beans>

@@ -8,6 +8,8 @@ import lombok.*;
 @Setter
 @Getter
 @ToString(includeFieldNames = true) //toString작성해줌
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemoVO {
 	
 	private int idx;
