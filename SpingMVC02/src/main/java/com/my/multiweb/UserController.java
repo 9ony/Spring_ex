@@ -26,12 +26,15 @@ public class UserController {
 	@Resource(name="userService")
 	private UserService userService;
 	
-	//@RequestMapping(value="/memo",method=RequestMethod.GET) 준거랑 똑같음
+	//@RequestMapping(value="/join",method=RequestMethod.GET) 준거랑 똑같음
 	@GetMapping("/join")
 	public String joinForm() {
 		return "/member/join";
 	}
-	
+	@GetMapping("/modify")
+	public String modify() {
+		return "/member/modify";
+	}
 	@PostMapping("/join")
 	public String joinEnd(Model m, @ModelAttribute("user") UserVO user) {
 		log.info("join === user :"+user);
@@ -93,6 +96,14 @@ public class UserController {
 		
 		return map;
 	}
+	@PostMapping(value="/admin/getUser", produces = "application/json")
+	@ResponseBody
+	public UserVO getUser(@RequestParam("idx") int idx){
+		log.info("getUser idx====="+idx);
+		UserVO user = userService.getUser(idx);
+		log.info("getUser user ===>"+user);
+		return user;
+	}
 	
 	@GetMapping("/admin/userList")
 	public String userList(Model m) {
@@ -101,13 +112,32 @@ public class UserController {
 		m.addAttribute("userArr",userArr);
 		return "/member/list";
 	}
-	
-	@PostMapping("/admin/userDel")
-	public String userDelete(@RequestParam(defaultValue="0") int idx) {
-		if(idx==0) {
+	@PostMapping("/admin/userEdit")
+	public String updateUser(Model m, @ModelAttribute("user") UserVO user) {
+		log.info("userEdit Modelattr = >"+ user);
+		if(user.getName()==null||user.getPwd()==null||
+				user.getName().trim().isEmpty()||user.getPwd().trim().isEmpty()) {
 			return "redirect:userList";
 		}
-		int n = userService.deleteUser(idx);
+		int n = userService.updateUser(user);
+		
+		String str = (n>0)?"수정완료":"수정실패";
+		String loc = "userList";
+		
+		m.addAttribute("message",str);
+		m.addAttribute("loc",loc);
+		return "msg";
+	}
+	
+	
+	@PostMapping("/admin/userDel")
+	public String userDelete(@RequestParam(defaultValue="0") int didx) {
+	//파라미터에 변수명은 html에 id와 같아야 받아온다.
+		log.info("userDel idx===>"+didx);
+		if(didx==0) {
+			return "redirect:userList";
+		}
+		int n = userService.deleteUser(didx);
 		log.info("n: "+n);
 		return "redirect:userList";
 	}

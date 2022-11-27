@@ -53,13 +53,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int updateUser(UserVO user) {
 		// TODO Auto-generated method stub
-		return 0;
+		return userDao.updateUser(user);
 	}
 
 	@Override
 	public UserVO getUser(Integer midx) {
-		// TODO Auto-generated method stub
-		return null;
+		UserVO user = userDao.getUser(midx);
+		if(user==null) {
+			return null;
+		}
+		return user;
 	}
 
 	@Override

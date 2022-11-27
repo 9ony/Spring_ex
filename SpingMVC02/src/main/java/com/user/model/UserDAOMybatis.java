@@ -36,7 +36,7 @@ public class UserDAOMybatis implements UserDAO {
 	@Override
 	public UserVO getUser(Integer midx) {
 		// TODO Auto-generated method stub
-		return null;
+		return session.selectOne(NS+".getUser", midx);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class UserDAOMybatis implements UserDAO {
 	@Override
 	public int updateUser(UserVO user) {
 		// TODO Auto-generated method stub
-		return 0;
+		return session.update(NS+".updateUser",user);
 	}
 
 }

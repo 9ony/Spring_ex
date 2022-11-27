@@ -1,3 +1,44 @@
+//관리자페이지 수정팝업 유효성 체크용
+function modify_check(){
+    let check=true;
+	if(!isKor(mf.name)){
+		alert('이름은 한글이름만 가능합니다');
+		mf.name.select();
+		check=false;
+	}
+	if(!isPasswd(mf.pwd)){
+		alert('비밀번호는 영문자,숫자,!,. 로 4~8자리까지 가능해요');
+		mf.pwd.select();
+		check=false;
+	}
+	if(mf.pwd.value!=mf.pwd2.value){
+		alert('비밀번호와 비밀번호 확인이 달라요');
+		mf.pwd2.select();
+		check=false;
+	}
+	if(!isMobile(mf.hp1, mf.hp2, mf.hp3)){
+		alert('핸드폰 형식에 맞지 않아요. (010|011)-(숫자3~4자리)-(숫자4자리)');
+		mf.hp1.select();
+		check=false;
+		return false;
+	}
+	return check;
+}//-----------------------
+//다음 주소찾기 팝업
+function postfind(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('post').value = data.zonecode; //우편 번호
+            document.getElementById('addr1').value = addr; //도로명 주소
+        }
+    }).open();
+}
 function ajax_idcheck(uid){
 	alert(uid);
 	if(!uid){

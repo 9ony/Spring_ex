@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/top"/>
 <script type="text/javascript" src="./js/userCheck.js"></script>
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <div class="container" style="height:750px;overflow: auto;">
 	<h1 class="text-center mt-1">Signup</h1>
 	<form name="mf" action="join" method="post">
@@ -51,7 +51,7 @@
 				<td width="20%" class="m1"><b>우편번호</b></td>
 				<td width="80%" class="m2">
 				<input type="text" name="post" id="post" placeholder="Post" maxlength="5">
-				<button type="button" class="btn btn-success">우편번호 찾기</button>
+				<button type="button" class="btn btn-success" onclick="postfind()">우편번호 찾기</button>
 				</td>
 			</tr>
 			<tr>
@@ -69,6 +69,5 @@
 			</tr>
 		</table>	
 	</form>
-	
 </div>
 <c:import url="/foot"/>

@@ -15,12 +15,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idCheck" resultType="int" parameterType="string">
 		select idx from member where userid=#{value}
 	</select>
-	<select id="selectUserByUserid" resultType="User" parameterType="string">
-	 	select * from member where userid=#{value}
+	<select id="getUser" resultType="user" parameterType="int">
+	 	select member.*, decode(status,0,'일반회원',-1,'정지회원',-2,'탈퇴회원',9,'관리자') statusStr from member where idx=#{value}
 	</select>
 	<!-- com.user.model.PagingVO은 별칭안줌 -->
 	<select id="listUser" resultType="user" parameterType="com.user.model.PagingVO">
-		select member.*, decode(status,0,'일반회원',-1,'정지회원',-2,'탈퇴회원') statusStr
+		select member.*, decode(status,0,'일반회원',-1,'정지회원',-2,'탈퇴회원',9,'관리자') statusStr
 		from member order by idx desc
 	</select>
 	
@@ -29,7 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<update id="updateUser" parameterType="user">
-		
+		update member set name=#{name}, pwd=#{pwd}, post=#{post:VARCHAR}, 
+		hp1=#{hp1},hp2=#{hp2},hp3=#{hp3},addr1=#{addr1:VARCHAR}, addr2=#{addr2:VARCHAR}, status=#{status}
+		where idx=#{idx}
 	</update>
 </mapper>
 <!-- //,jdbcType=VARCHAR -->
