@@ -96,6 +96,7 @@ public class UserController {
 		
 		return map;
 	}
+	//회원 정보 가져오기
 	@PostMapping(value="/admin/getUser", produces = "application/json")
 	@ResponseBody
 	public UserVO getUser(@RequestParam("idx") int idx){
@@ -104,7 +105,7 @@ public class UserController {
 		log.info("getUser user ===>"+user);
 		return user;
 	}
-	
+	//회원목록
 	@GetMapping("/admin/userList")
 	public String userList(Model m) {
 		List<UserVO> userArr=userService.listUser(null);
@@ -112,6 +113,7 @@ public class UserController {
 		m.addAttribute("userArr",userArr);
 		return "/member/list";
 	}
+	//회원수정
 	@PostMapping("/admin/userEdit")
 	public String updateUser(Model m, @ModelAttribute("user") UserVO user) {
 		log.info("userEdit Modelattr = >"+ user);
@@ -129,7 +131,7 @@ public class UserController {
 		return "msg";
 	}
 	
-	
+	//회원삭제
 	@PostMapping("/admin/userDel")
 	public String userDelete(@RequestParam(defaultValue="0") int didx) {
 	//파라미터에 변수명은 html에 id와 같아야 받아온다.
@@ -140,5 +142,16 @@ public class UserController {
 		int n = userService.deleteUser(didx);
 		log.info("n: "+n);
 		return "redirect:userList";
+	}
+	//로그인
+	@GetMapping("/login")
+	public String login() {
+		return "/member/login";
+	}
+	
+	@PostMapping("/loginCheck")
+	public String loginCheck(Model m , Map<String,String> map) {
+		
+		return "";
 	}
 }

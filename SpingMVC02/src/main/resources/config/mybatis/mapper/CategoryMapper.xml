@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 만든 CategoryMapper인터페이스의 경로와 네임스페이스를 일치시켜야됨 -->
+<mapper namespace="com.shop.mapper.CategoryMapper">
+<!-- id는 categorymapper인터페이스의 메서드명과 일치시켜야됨 -->
+<select id="getUpcategory" resultType="Category">
+	select * from upCategory order by 1 asc
+</select>
+<select id="getDowncategory" resultType="Category" parameterType="string">
+	select * from downCategory where upcg_code = #{value}
+</select>
+</mapper> 
