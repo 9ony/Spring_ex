@@ -44,13 +44,46 @@
 				alert('err')
 			})
 		});
+		$('#bt3').click(function(){
+			let jsonData={
+				idx:111,
+				name:'king',
+				msg:'HOW are you?',
+				wdate:"2022-11-28"
+			};
+			//json데이터를 파라미터로 보내고,응답도 json으로 받기
+			$.ajax({
+				type:'post',
+				url:'ajaxRestJson',
+				contentType:'application/json', //contentType json지정
+				data:JSON.stringify(jsonData), //json객체로 문자열로 직렬화
+				dataType:'json',
+				cache:false,
+				success:function(res){
+					/* alert(JSON.stringify(res)); */
+					let wdate=new Date(res.memo1.wdate);
+					alert(wdate);
+					//getMonth(): 1월: 0을 반환, 2월:1 ...
+					let dateStr=wdate.getFullYear()+"-"+(wdate.getMonth()+1)+"-"+wdate.getDate();
+					let str='<h3>작성자명:';
+						str+=res.memo1.name+'</h3>';
+						str+='<h3>메모내용: '+res.memo1.msg+"<h3>";
+						str+='<h3>작성일: '+dateStr+"<h3>";
+						$('#resultView').html(str);
+				},	
+				error:function(err){
+					alert('err: '+err.status);
+				}
+			})
+		});
 	})
 </script>
 <div class="container mt-3" style="height:600px;overflow: auto;">
 	<h1 class="text-center">Ajax Test Page</h1>
 	<div class="text-center">
-	<button id="bt1" class="btn">ajax(VO)</button>
-	<button id="bt2" class="btn">ajax(List)</button>
+	<button id="bt1" class="btn btn-outline-success">ajax(VO)</button>
+	<button id="bt2" class="btn btn-outline-danger">ajax(List)</button>
+	<button id="bt3" class="btn btn-outline-privary">ajaxRest(JSON파라미터 전달)</button>
 	</div>
 	<hr>
 	<div id="resultView"></div>

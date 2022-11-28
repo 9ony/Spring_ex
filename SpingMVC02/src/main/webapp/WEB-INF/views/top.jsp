@@ -40,6 +40,12 @@
         <a class="nav-link" href="${myctx }/login ">Login</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="${myctx }/ajaxView ">Spring Ajax</a>
+      </li>  
+      <li class="nav-item">
+        <a class="nav-link" href="${myctx }/fileForm ">FileForm</a>
+      </li>  
+      <li class="nav-item">
         <a class="nav-link" href="${myctx }/admin/prodForm ">상품등록</a>
       </li>    
       <li class="nav-item">

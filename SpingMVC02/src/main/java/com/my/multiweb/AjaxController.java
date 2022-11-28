@@ -17,7 +17,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 public class AjaxController {
-	@RequestMapping(value="/ajax",method=RequestMethod.GET)
+	@RequestMapping(value="/ajaxView",method=RequestMethod.GET)
 	public String ajaxForm() {
 		return "ajax/ajaxView";
 	}

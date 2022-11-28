@@ -60,7 +60,7 @@ input#hp1, input#hp2, input#hp3 {
 						<td>${user.getAllHp() }</td>
 						<td class="txt${user.status }">${user.statusStr }</td>
 						<td>
-							<a href="#" onclick="userSel('${user.idx}'); return false;" data-toggle="modal" data-target="#editForm">수정</a>|
+							<a href="#" onclick="userSel('${user.idx}'); return false;">수정</a>|
 						 	<a href="#" onclick="userDel('${user.idx}')">삭제</a>
 						 </td>
 					</tr>
@@ -111,6 +111,7 @@ input#hp1, input#hp2, input#hp3 {
 			$('#st').prop('class', 'txt' + res.status).html(res.statusStr);
 			$('option[value*=' + res.status + ']').prop('selected', true);
 			/* prop으로 css에맞춰 클래스태그 추가 및 selected 설정*/
+			$("#editForm").modal('show');
 			/* 
 			$('a[onclick^="userSel"]').attr("data-toggle", "modal");
 			$('a[onclick^="userSel"]').attr("data-target", "#editForm"); 
@@ -122,9 +123,10 @@ input#hp1, input#hp2, input#hp3 {
 			//	기본 modal hide설정
 			//https://www.w3schools.com/bootstrap4/bootstrap_modal.asp 예제 참조함
 		}).fail(function(err) {
-			/* $("#editForm").modal('hide'); [x] */
+			$("#editForm").modal('hide');
+			/* modal('show')로 오픈하니까 hide도 된다. */
 			alert('err');
-			location.reload();
+			//location.reload();
 			//새로고침으로 modal 닫기 (임시방편)
 		});
 	}
