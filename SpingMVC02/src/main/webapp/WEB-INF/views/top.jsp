@@ -36,9 +36,20 @@
       <li class="nav-item">
         <a class="nav-link" href="${myctx }/join ">Join</a>
       </li>
+      <c:if test="${loginUser eq null }"><!-- 로그인상태가 아닐경우 -->
       <li class="nav-item">
-        <a class="nav-link" href="${myctx }/login ">Login</a>
+      	<%-- <a class="nav-link" href="${myctx }/login ">Login</a> --%>
+        <a class="nav-link" href="#loginModal" data-toggle="modal">Login</a>
       </li>
+      </c:if>
+      <c:if test="${loginUser ne null }"><!-- 로그인햇을경우 -->
+	      <li class="nav-item bg-primary">
+	      	<a class="nav-link text-white" href="#">${loginUser.userid}님 로그인 중...</a>	
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="${myctx }/logout ">Logout</a>
+	      </li>
+      </c:if>
       <li class="nav-item">
         <a class="nav-link" href="${myctx }/ajaxView ">Spring Ajax</a>
       </li>  

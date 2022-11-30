@@ -147,7 +147,8 @@ public class UserController {
 		log.info("n: "+n);
 		return "redirect:userList";
 	}
-	//로그인
+	//로그인 수정 loginController로 이동
+	/*
 	@GetMapping("/login")
 	public String login() {
 		return "/member/login";
@@ -183,4 +184,5 @@ public class UserController {
 			return "msg";
 		}
 	}
+	*/
 }

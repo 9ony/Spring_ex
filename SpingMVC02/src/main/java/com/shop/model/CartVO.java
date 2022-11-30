@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class CartVO {
-	private int cartnum;//장바구니번호
+	private int cartNum;//장바구니번호
 	private int idx_fk;//회원번호 조인해서 회원정보
 	private int pnum_fk;//상품번호 조인해서 상품정보
 	private int oqty;//수량

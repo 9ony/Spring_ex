@@ -46,4 +46,8 @@ public class ProductController {
 	public String openPop() {
 		return "shop/openPop";
 	}
+	@GetMapping("/review")
+	public String reviewForm() {
+		return "review/reviewForm";
+	}
 }

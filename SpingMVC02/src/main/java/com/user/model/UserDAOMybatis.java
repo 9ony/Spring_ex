@@ -45,10 +45,17 @@ public class UserDAOMybatis implements UserDAO {
 		return session.selectOne(NS+".idCheck",userid);
 	}
 
+//  혼자먼저한것들 주석
+//	@Override
+//	public UserVO findUser(UserVO findUser) {
+//		// TODO Auto-generated method stub
+//		return session.selectOne(NS+".findUser", findUser);
+//	}
+	
 	@Override
 	public UserVO findUser(UserVO findUser) {
 		// TODO Auto-generated method stub
-		return session.selectOne(NS+".findUser", findUser);
+		return session.selectOne(NS+".selectUserByUserid", findUser.getUserid());
 	}
 
 	@Override

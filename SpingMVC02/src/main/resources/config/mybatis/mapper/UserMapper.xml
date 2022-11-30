@@ -15,6 +15,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idCheck" resultType="int" parameterType="string">
 		select idx from member where userid=#{value}
 	</select>
+	
+	<select id="selectUserByUserid" parameterType="string" resultType="User">
+		select * from member where userid=#{value}	
+	</select>
+	
 	<select id="getUser" resultType="user" parameterType="int">
 	 	select member.*, decode(status,0,'일반회원',-1,'정지회원',-2,'탈퇴회원',9,'관리자') statusStr from member where idx=#{value}
 	</select>
