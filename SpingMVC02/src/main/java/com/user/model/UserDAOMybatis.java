@@ -48,7 +48,7 @@ public class UserDAOMybatis implements UserDAO {
 	@Override
 	public UserVO findUser(UserVO findUser) {
 		// TODO Auto-generated method stub
-		return null;
+		return session.selectOne(NS+".findUser", findUser);
 	}
 
 	@Override

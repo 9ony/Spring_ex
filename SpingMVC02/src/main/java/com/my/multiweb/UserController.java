@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.user.model.NotUserException;
 import com.user.model.UserVO;
 import com.user.service.UserService;
 
@@ -149,9 +153,34 @@ public class UserController {
 		return "/member/login";
 	}
 	
-	@PostMapping("/loginCheck")
-	public String loginCheck(Model m , Map<String,String> map) {
-		
-		return "";
+	@PostMapping("/login")
+	public String findUser(Model m ,HttpServletRequest req , HttpSession session ,UserVO user) {
+		log.info("findUser param ===>"+user);
+		session = req.getSession();
+		try {
+			UserVO vo = userService.findUser(user);
+			log.info("findUser value ===>"+vo);
+			if(vo==null) {
+				//session.invalidate();
+				throw new NotUserException("잘못된 회원 정보입니다.");
+			}else if(vo.getStatus()==(-1)) {
+				//session.invalidate();
+				throw new NotUserException("정지회원 입니다 관리자에게 문의하세요.");
+			}else if(vo.getStatus()==(-2)) {
+				//session.invalidate();
+				throw new NotUserException("이미 탈퇴한 회원입니다");
+			}else {
+				session.setAttribute("loginState", vo);
+				//log.info("성공세션정보는? "+session.getAttribute("loginState"));
+				m.addAttribute("message","로그인 성공");
+				m.addAttribute("loc","index");
+				return "msg";
+			}
+		} 
+		catch (NotUserException e) {
+			m.addAttribute("message",e.getMessage());
+			m.addAttribute("loc","login");
+			return "msg";
+		}
 	}
 }

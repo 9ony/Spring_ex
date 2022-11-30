@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO findUser(UserVO findUser) throws NotUserException {
 		// TODO Auto-generated method stub
-		return null;
+		return userDao.findUser(findUser);
 	}
 
 	@Override

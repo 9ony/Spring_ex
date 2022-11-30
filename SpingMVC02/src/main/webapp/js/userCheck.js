@@ -1,3 +1,16 @@
+function login_check(){
+	if(!lgf.userid.value){
+		alert('아이디를 입력하세요');
+		lgf.userid.focus();
+		return false;
+	}
+	if(!lgf.pwd.value){
+		alert('비밀번호를 입력하세요');
+		lgf.pwd.focus();
+		return false;
+	}
+	lgf.submit();
+}
 //관리자페이지 수정팝업 유효성 체크용
 function modify_check(){
     let check=true;
@@ -40,7 +53,7 @@ function postfind(){
     }).open();
 }
 function ajax_idcheck(uid){
-	alert(uid);
+	//alert(uid);
 	if(!uid){
 		uid=$('#userid').val(uid);
 		if(!uid){

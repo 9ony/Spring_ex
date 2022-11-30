@@ -72,7 +72,7 @@ input#hp1, input#hp2, input#hp3 {
 </div>
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editForm">modal</button> //test -->
 <form name="frm" id="frm" method="POST">
-	<input type="hidden" name="didx" id="idx">
+	<input type="hidden" name="didx" id="didx">
 </form>
 <c:import url="/modify"/>
 <script>
