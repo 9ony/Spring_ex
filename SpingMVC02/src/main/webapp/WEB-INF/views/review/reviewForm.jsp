@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script src="js/reviewAjax.js"></script>
 <form method="post" enctype="multipart/form-data" name="rf" id="rf">
 	<!-- hidden data------------------------------------ -->
-		<input type="hidden" name="pnum_fk" id="pnum_fk" value="${prod.pnum}">
-		<input type="hidden" name="userid" id="userid" value="${loginUser.userid}">
+		<input type="text" name="pnum_fk" id="pnum_fk" value="${prod.pnum}">
+		<input type="text" name="userid" id="userid" value="${loginUser.userid}">
 	<!-- ---------------------------------------------- -->
 	<table class="table">
 	<tr>
@@ -36,13 +37,17 @@
 	<tr>
 		<th>이미지업로드</th>
 		<td colspan="2">
-		<input type="file" name="filename" id="filename"
+		<!-- multipartfile로 받아야되서 reviewvo와 name이 똑같으면 reviewvo가 받을려고함 -->
+		<input type="file" name="mfilename" id="mfilename"
 		 accept="image/*" class="form-control">
 		</td>
 		<td>
-		<a type="button" class="btn btn-success"
-				onclick="send()">글쓰기</a>
+		<!-- 파일 업로드가 없는 일반벅인 폼 데이터를 전송할때 send()를 통해 ajax요청 -->
+		<!-- <a type="button" class="btn btn-success"
+				onclick="send()">글쓰기</a> -->
+		<button class="btn btn-outline-success">글쓰기</button>
 		</td>
 	</tr>
 </table>
 </form>
+

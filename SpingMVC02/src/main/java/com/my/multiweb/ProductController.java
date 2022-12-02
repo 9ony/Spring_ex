@@ -3,6 +3,7 @@ package com.my.multiweb;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +34,10 @@ public class ProductController {
 		return "shop/mallHit";
 	}
 	@GetMapping(value="/prodDetail")
-	public String prodDetail(Model m , @RequestParam("pnum") int pnum) {
-
+	public String prodDetail(Model m ,  @RequestParam(defaultValue="0") int pnum) {
+		if(pnum==0) {
+			return "redirect:index";
+		}
 		log.info("prodDetail pnum==>"+pnum);
 		ProductVO prod = shopService.selectByPnum(pnum);
 		log.info("prodDetail ===> "+prod);
@@ -42,12 +45,21 @@ public class ProductController {
 		
 		return "shop/prodDetail";
 	}
+
+	/*
+	@GetMapping("/prodDetail")
+	public String productDetail(Model m, @RequestParam(defaultValue="0") int pnum, HttpSession ses) {
+		if(pnum==0) {
+			return "redirect:index";
+		}
+		ses.setAttribute("pnum", pnum);
+		ProductVO vo=this.shopService.selectByPnum(pnum);
+		m.addAttribute("prod",vo);
+		return "shop/prodDetail";
+	}//-------------------------------------
+	 */
 	@GetMapping("/openPop")
 	public String openPop() {
 		return "shop/openPop";
-	}
-	@GetMapping("/review")
-	public String reviewForm() {
-		return "review/reviewForm";
 	}
 }

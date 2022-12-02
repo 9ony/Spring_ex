@@ -9,6 +9,6 @@ public class ReviewVO {
 	private int pnum_fk;
 	private String content;
 	private int score;
-	private long filename;
+	private String filename;
 	private java.util.Date wdate;
 }

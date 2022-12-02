@@ -16,7 +16,7 @@
 	const goCart=function(){
 		//pnum,oqty가 파라미터 넘어감
 		frm.action="user/cartAdd";
-		//frm.method='get';
+		frm.method='post';
 		frm.submit();
 	}
 	
@@ -132,7 +132,20 @@
             </table>
          </div>
       </div>
-      <c:import url="/review"/>
-	</div>
-</div>
+	</div><!-- row end -->
+	<!-- 글쓰기 폼 -->
+	<div class="row mt-4">
+         <div class="col-md-10 offset-md-1">
+               <c:import url="/reviewForm"/>
+         </div>
+    </div>
+    <!-- 리뷰 목록 -->
+    <div class="row">
+         <div class="col-md-10 offset-md-1" id="reviewList">
+         </div>
+    </div>
+    <!-- 수정폼 -->
+    <c:import url="/reviewEdit"/>
+</div><!-- container end -->
+	
 <c:import url="/foot" />

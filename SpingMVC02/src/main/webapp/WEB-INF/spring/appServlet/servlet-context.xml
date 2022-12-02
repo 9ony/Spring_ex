@@ -42,4 +42,7 @@
 	</beans:bean>
 	<!-- String upDir=new String("C:/myjava/Upload"); -->
 	
+	<!-- indexController에 top.jsp index.jsp처럼 단순하게 뷰를위한 기능 -->
+	<view-controller path="/reviewForm" view-name="review/reviewForm"/>
+	<view-controller path="/reviewEdit" view-name="review/reviewEdit"/>
 </beans:beans>
