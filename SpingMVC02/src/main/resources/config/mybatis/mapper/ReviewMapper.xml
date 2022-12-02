@@ -23,7 +23,19 @@
 	</select>
 	
 	<update id="updateReview" parameterType="Review">
+		update review set userid=#{userid}, content=#{content} , score=#{score:NUMERIC} 
+		<if test="filename!=null and filename!=''">
+		, filename=#{filename:VARCHAR} 
+		</if>
+		where num=#{num}
+	</update>
+	
+	<update id="updateReview_my" parameterType="Review">
 		update review set content=#{content} , score=#{score} , filename=#{filename:VARCHAR} 
 		where num=#{num}
 	</update>
+	
+	<select id="getReviewCount" resultType="_int" parameterType="_int">
+		select count(num) from review where pnum_fk=#{value}
+	</select>
 </mapper>

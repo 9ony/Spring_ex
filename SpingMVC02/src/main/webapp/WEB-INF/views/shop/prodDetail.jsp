@@ -36,6 +36,7 @@
 	<div class="container" style="text-align:center">
 		<div class="row">
          <div class="col-md-12">
+         	<%-- <input type="text" id="loginuserid" value="${loginUser.userid}"> --%>
             <table class="table">
                <thead>
                   <tr>
@@ -139,6 +140,11 @@
                <c:import url="/reviewForm"/>
          </div>
     </div>
+    <div class="row">
+         <div class="col-md-10 offset-md-1 text-center" id="reviewTitle">
+         	<h4>Review List <span class="badge badge-success" id="review_cnt">7</span></h4>
+         </div>
+    </div>
     <!-- 리뷰 목록 -->
     <div class="row">
          <div class="col-md-10 offset-md-1" id="reviewList">
@@ -146,6 +152,7 @@
     </div>
     <!-- 수정폼 -->
     <c:import url="/reviewEdit"/>
+    <!-- 인크루드 방식= include file="/WEB-INF/views/review/reviewEdit.jsp" -->
 </div><!-- container end -->
 	
 <c:import url="/foot" />

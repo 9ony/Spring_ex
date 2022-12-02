@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="modal" id="reviewModal">
-    <div class="modal-dialog modal-md">
+    <div class="mt5" style='width:50%; margin:auto'>
       <div class="modal-content">
 		<form method="post" enctype="multipart/form-data" name="rf2" id="rf2">
 			<!-- hidden data------------------------------------ -->
-				<input type="text" name="pnum_fk" id="pnum_fk" value="${prod.pnum}">
-				<input type="text" name="userid" id="userid">
-				<input type="text" name="num" id="num">
+				<input type="hidden" name="pnum_fk" id="pnum_fk" value="${prod.pnum}">
+				<input type="hidden" name="userid" id="userid">
+				<input type="hidden" name="num" id="num">
 			<!-- ---------------------------------------------- -->
 			<table class="table">
 			<tr>
@@ -18,6 +18,7 @@
 			<tr>
 				<th>평가점수</th>
 				<td>
+				<div id="star"></div>
 				<input type="hidden" name="score" id="score">
 				 <label for="score1"><input type="radio" name="score" id="score1" value="1">1점</label>
 				<label for="score2"><input type="radio" name="score" id="score2" value="2">2점</label>
@@ -39,16 +40,12 @@
 			</tr> 
 			<tr>
 				<th>이미지업로드</th>
-				<td colspan="2">
-				<!-- multipartfile로 받아야되서 reviewvo와 name이 똑같으면 reviewvo가 받을려고함 -->
-				<input type="file" name="mfilename" id="mfilename"
-				 accept="image/*" class="form-control">
+				<td colspan="2" id="prodImage">
+				<!-- <input type="file" name="mfilename" id="mfilename"
+				 accept="image/*" class="form-control"> -->
 				</td>
 				<td>
-				<!-- 파일 업로드가 없는 일반벅인 폼 데이터를 전송할때 send()를 통해 ajax요청 -->
-				<!-- <a type="button" class="btn btn-success"
-						onclick="send()">글쓰기</a> -->
-				<button type="button" class="btn btn-outline-success">글쓰기</button>
+				<button class="btn btn-outline-success">글수정</button>
 				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
 				</td>
 			</tr>

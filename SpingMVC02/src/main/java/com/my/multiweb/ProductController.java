@@ -26,7 +26,7 @@ public class ProductController {
 	//HIR,NEW,BEST 별로 상품목록 가져오기
 	@GetMapping("/prodPspec")
 	public String productByPsepc(Model m, @RequestParam(name="pspec", defaultValue="HIT") String pspec) {
-		log.info("pspec====="+pspec);
+		//log.info("pspec====="+pspec);
 		List<ProductVO> pList = shopService.selectByPspec(pspec);
 		
 		m.addAttribute("pList",pList);
@@ -38,7 +38,7 @@ public class ProductController {
 		if(pnum==0) {
 			return "redirect:index";
 		}
-		log.info("prodDetail pnum==>"+pnum);
+		//log.info("prodDetail pnum==>"+pnum);
 		ProductVO prod = shopService.selectByPnum(pnum);
 		log.info("prodDetail ===> "+prod);
 		m.addAttribute("prod",prod);

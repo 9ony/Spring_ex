@@ -30,7 +30,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int getReviewCount(int pnum_fk) {
 		// TODO Auto-generated method stub
-		return 0;
+		return reviewMapper.getReviewCount(pnum_fk);
 	}
 
 	@Override

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -86,9 +88,21 @@ public class ReviewController {
 	}
 	 */
 	
+	@GetMapping(value="/reviewCnt", produces="application/json")
+	public ModelMap getReviewCount(@RequestParam("pnum") int pnum) {
+		int count=reviewService.getReviewCount(pnum);
+		ModelMap map = new ModelMap();
+		log.info("count===>"+count);
+		map.put("count", count);
+		return map;
+	}
+	
 	@PostMapping(value="/user/reviews" , produces = "application/xml")
-	public ModelMap reviewInsert(@RequestParam("mfilename") MultipartFile mf,
+	public ModelMap reviewInsert(@RequestParam(value="mfilename" , required = false) MultipartFile mf,
 			@ModelAttribute("rvo") ReviewVO rvo , HttpSession ses) {
+		//required = false를 추가하자. default는 required = true이기 
+		// 때문에 명시하지 않으면 필수값이 아닐 경우 에러가 발생한다.
+		
 		log.info("rvo post========>"+ rvo);
 		ServletContext app = ses.getServletContext();
 		//업로드 절대경로 얻어오기
@@ -123,7 +137,7 @@ public class ReviewController {
 		map.addAttribute("result",n);
 		return map;
 	}
-	@GetMapping(value="/reviews/{num}", produces = "application/json")
+	@GetMapping(value="/user/reviews/{num}", produces = "application/json")
 	public ReviewVO getReview(@PathVariable("num") int num) {
 		
 		ReviewVO rvo=reviewService.getReview(num);
@@ -131,4 +145,14 @@ public class ReviewController {
 		return rvo;
 	}
 	
+	@PutMapping(value="/user/reviews/{num}", produces = "application/json")
+	public ModelMap reviewUpdatae(@PathVariable("num") int num, @RequestBody ReviewVO rvo) {
+		log.info(rvo);
+		
+		int n=reviewService.updateReview(rvo);
+		
+		ModelMap map=new ModelMap();
+		map.put("result", n);
+		return map;
+	}
 }

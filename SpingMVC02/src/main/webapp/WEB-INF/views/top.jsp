@@ -64,6 +64,9 @@
       </li>    
       <li class="nav-item">
         <a class="nav-link" href="${myctx }/user/cartList">Cart</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="${myctx }/admin/userList">UserList</a>
       </li>    
       <li class="nav-item">
         <a class="nav-link" href="${myctx }/user/board/write">Board Form</a>

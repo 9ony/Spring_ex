@@ -41,7 +41,18 @@
 		<beans:constructor-arg value="C:/myjava/Upload"/>			
 	</beans:bean>
 	<!-- String upDir=new String("C:/myjava/Upload"); -->
-	
+	<!-- Interceptor설정 =========================================================== -->
+   <interceptors>
+         <interceptor>
+            <mapping path="/user/**"/>
+            <mapping path="/admin/**"/>
+            <beans:bean class="com.common.interceptor.LoginCheckInterceptor"/>
+         </interceptor>
+         <interceptor>
+            <mapping path="/admin/**"/>
+            <beans:bean class="com.common.interceptor.AdminCheckInterceptor"/>
+         </interceptor>
+   </interceptors>
 	<!-- indexController에 top.jsp index.jsp처럼 단순하게 뷰를위한 기능 -->
 	<view-controller path="/reviewForm" view-name="review/reviewForm"/>
 	<view-controller path="/reviewEdit" view-name="review/reviewEdit"/>
