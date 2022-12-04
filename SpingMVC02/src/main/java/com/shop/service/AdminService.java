@@ -17,6 +17,10 @@ public interface AdminService {
 
 	/** [관리자 모드]- 상품 정보 등록하기 */
 	public int productInsert(ProductVO prod);
+	public int productUpdate(ProductVO prod);
+	public int productDelete(int pnum);
 	public List<ProductVO> productList();
+	
+	public ProductVO selectByPnum(int pnum);
 	
 }

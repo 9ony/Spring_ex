@@ -44,10 +44,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 		UserVO user=(UserVO)ses.getAttribute("loginUser");
 		if(user==null) {
 			if("true".equals(header)) { //header에 포함되서온 Ajax키값의 밸류가 true면
-				res.sendError(400);//에러코드 400을보낸다
+				res.sendError(999);//에러코드 999을보낸다
 				return false;
-			}else if("XMLHttpRequest".equals(headertest)) { // Test
-				res.sendError(400);
+			}else if("XMLHttpRequest".equals(headertest)) { //test
+				//기본적으로 ajax요청은 헤더에 X-Requested-With가 포함되어 있다. 
+				res.sendError(999);
 				return false;
 			}
 			else {

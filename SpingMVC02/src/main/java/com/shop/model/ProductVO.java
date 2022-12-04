@@ -46,4 +46,15 @@ public class ProductVO {
 		int percent=(price-saleprice)*100/price;
 		return percent;
 	}
+	public void setPimage(int index,String pimageName) {
+		if(index==0) {
+			setPimage1(pimageName);
+		}else if(index==1) {
+			 setPimage2(pimageName);
+		}else if(index==2){
+			setPimage3(pimageName);
+		}else {
+			new Exception("잘못된 인덱스 입니다.");
+		}
+	}
 }

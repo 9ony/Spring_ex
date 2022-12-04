@@ -57,7 +57,7 @@ $(function(){
  		},
  		error:function(err){
  			//alert(err.status);
- 			if(err.status==400){
+ 			if(err.status==999){
  				alert('로그인해야 이용가능 합니다!');
  			}
  		}
@@ -104,7 +104,7 @@ $(function(){
 				}
 			},
 			error:function(err){
-				if(err.status==400){
+				if(err.status==999){
 					alert("로그인해야 가능해요!");
 				}else{
 					alert(err.status);
@@ -172,16 +172,15 @@ const showTable=function(res){
 		}
 		str+='<div class="mt-4">';
 		if(rvo.userid == "${loginUser.userid}"){
-		str+='<a href="#reviewList" onclick="reviewEdit('+rvo.num+')">수정</a>';
+		str+='<a href="#reviewList" onclick="reviewEdit('+rvo.num+')">Edit</a>';
 		str+= ' | ';
-		str+='<a href="#reviewList" onclick="reviewDel('+rvo.num+')">삭제</a>';
+		str+='<a href="#reviewList" onclick="reviewDel('+rvo.num+')">Delete</a>';
 		}
 		str+='</div>';
 		str+='</td>';
 		str+='</tr>';
 		});
 		str+='</table>';
-
 		$('#reviewList').html(str);
 }//--------------------------------
 
@@ -219,11 +218,10 @@ const reviewEdit = function(num){
 			$('#prodImage').html(str);
 			//파일은 자바스크립트로 못넣음 (읽기전용)
 			
-			
 			$("#reviewModal").modal();
 		},
 		error:function(err){
-			if(err.status==400){
+			if(err.status==999){
 				alert("로그인해야 가능해요!");
 			}else{
 				alert(err.status);
@@ -252,7 +250,7 @@ const reviewDel = function(num){
 		},
 		error:function(err){
 			//alert(err.status);
-			if(err.status==400){
+			if(err.status==999){
 				alert("로그인해야 가능해요!");
 			}else{
 				alert(err.status);

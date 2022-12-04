@@ -53,8 +53,8 @@
                   %할인</span>
                   </td>
                   <td>
-                  <a href="javascript:edit('${prod.pnum }')">수정</a>|
-                  <a href="#" onclick="remove('${prod.pnum}')">삭제</a>
+                  <a href="javascript:prodEdit('${prod.pnum }')">수정</a>|
+                  <a href="#" onclick="prodDel('${prod.pnum}')">삭제</a>
                   </td>
                </tr>
                </c:forEach>
@@ -65,7 +65,13 @@
           </table>
        </div>
      </div>
-	
 </div>
-
+<<script>
+	const prodEdit = function(pnum){
+		location.href="./prodEditForm?pnum="+pnum;
+	}
+	const prodDel = function(pnum){
+		location.href="./prodDel?pnum="+pnum;
+	}
+</script>
 <c:import url="/foot" />

@@ -84,6 +84,7 @@ input#hp1, input#hp2, input#hp3 {
 		$('#frm').submit();
 	}
 	function userEdit(bool) {
+		//bool = modify.jsp 에서 수정폼 유효성체크가 통과되면 true를반환 아니면 false로 실행이안됨 
 		if (bool == true) {
 			/*input태그 name속성값 = value값; 으로 VO객체 생성되서 보내짐 */
 			$('#editF').prop('action', 'userEdit');

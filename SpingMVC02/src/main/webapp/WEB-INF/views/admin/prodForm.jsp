@@ -4,6 +4,29 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:import url="/top" />
 <script>
+	//prod list에서 edit버튼을 통해 prodForm에 접근했을때
+	$(function(){
+		if(${flag==false}){
+			//alert(${flag});
+			$('#prodF[action^="prodInsert"]').prop('action','prodUpdate/${prod.pnum}');
+			$('#title').html('상품 수정 [Admin Page]');
+			$('#pname').val('${prod.pname}');
+			$('#pcompany').val('${prod.pcompany}');
+			$('#pspec>option[value^="${prod.pspec}"]').prop('selected',true);
+			$('#pqty').val(${prod.pqty});
+			$('#price').val(${prod.price});
+			$('#saleprice').val(${prod.saleprice});
+			$('#pcontents').val('${prod.pcontents}');
+			$('#point').val(${prod.point});
+			$('#editBtn').html("상품수정");
+			$('#upCg_code>option[value=${prod.upCg_code}]').prop('selected',true); //상위카테고리
+			selectDownCategory(${prod.upCg_code}); //하위카테고리 출력 함수 실행
+			setTimeout(()=> $('#downCg_code>option[value=${prod.downCg_code}]').prop('selected',true),500);
+			//$('#downCg_code>option[value=${prod.downCg_code}]').prop('selected',true); //하위카테고리
+			
+		}
+	});
+	//상위카테고리를받아 하위카테고리를 출력
 	function selectDownCategory(upCode){
 		$.ajax({
 			url:'getDownCategory',
@@ -32,7 +55,8 @@
 		});
 		
 	}
-	function check(){
+	//상품등록 유효성 체크
+	function prod_check(){
 		if(!$('#upCg_code').val()){
 			alert('상위 카테고리를 선택하세요');
 			$('#upCg_code').focus();
@@ -71,17 +95,16 @@
 			$('#point').select();
 			return false;
 		}
-		
 	}
 </script>
 <div class="py-5">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1 class="text-center">상품 등록[Admin Page]</h1>
+				<h1 class="text-center" id="title">상품 등록[Admin Page]</h1>
 
 				<form name="prodF" id="prodF" action="prodInsert" method="post" 
-				enctype="multipart/form-data" onsubmit="return check()">
+				enctype="multipart/form-data" onsubmit="return prod_check()">
 					<!-- 파일업로드시: enctype="multipart/form-data"-->
 					<table class="table table-condensed table-bordered mt-4">
 						<thead>
@@ -125,8 +148,8 @@
 								</select></td>
 							</tr>
 							<tr>
-								<td>상품이미지</td>
-								<td>
+								<td width="20%"><b>상품이미지</b></td>
+								<td width="80%">
 								<input type="file" name="pimage"><br> 
 								<input type="file" name="pimage"><br>
 								<input type="file" name="pimage"><br>
@@ -167,7 +190,8 @@
 							</tr>
 							<tr>
 								<td colspan="2" class="text-center">
-									<button class="btn btn-outline-success">상품등록</button>
+									<button class="btn btn-outline-success" id="editBtn">상품등록</button>
+									<button type="button" class="btn btn-outline-success" onclick="javascript:history.back()">취소</button>
 								</td>
 							</tr>
 						</tbody>

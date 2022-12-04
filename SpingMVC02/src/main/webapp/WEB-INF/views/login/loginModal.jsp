@@ -27,7 +27,7 @@
 	
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger"onclick="login_check()">로그인</button>
+	        <button type="button" class="btn btn-danger" onclick="login_check()">로그인</button>
 	        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 	      </div>
 		</form>

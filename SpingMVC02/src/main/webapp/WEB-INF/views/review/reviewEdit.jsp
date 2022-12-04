@@ -47,7 +47,7 @@
 				<td>
 				<button class="btn btn-outline-success">글수정</button>
 				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
-				</td>
+ 				</td>
 			</tr>
 		</table>
 		</form>

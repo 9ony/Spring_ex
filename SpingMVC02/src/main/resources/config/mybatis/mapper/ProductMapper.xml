@@ -13,6 +13,18 @@
 					#{pcompany},sysdate)
 	</insert>
 	
+	<update id="productUpdate" parameterType="Product">
+		update product set 
+		downcg_code=#{downCg_code},upcg_code=#{upCg_code},pname=#{pname},pimage1=#{pimage1:VARCHAR},pimage2=#{pimage2:VARCHAR},pimage3=#{pimage3:VARCHAR},
+		price=#{price},saleprice=#{saleprice},pqty=#{pqty},point=#{point},pspec=#{pspec},pcontents=#{pcontents},
+		pcompany=#{pcompany}
+		where pnum=#{pnum}
+	</update>
+	
+	<delete id="productDelete" parameterType="_int">
+		delete product where pnum=#{value}
+	</delete>
+	
 	<select id="getProducts" resultType="Product">
 		select p.*,
 		(select upCg_name from upCategory where upCg_code=p.upCg_code) upCg_name,

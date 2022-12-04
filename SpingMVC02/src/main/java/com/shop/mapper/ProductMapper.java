@@ -7,6 +7,8 @@ import com.shop.model.ProductVO;
 
 public interface ProductMapper {
 	int productInsert(ProductVO vo);
+	int productUpdate(ProductVO vo);
+	int productDelete(int pnum);
 	
 	List<ProductVO> getProducts();
 	

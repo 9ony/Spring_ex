@@ -124,8 +124,8 @@
       
       <!-- 수정form ------------------------- -->
       <form name="ef" action="cartEdit">
-            <input type="text" name="cartNum">
-            <input type="text" name="oqty">
+            <input type="hidden" name="cartNum">
+            <input type="hidden" name="oqty">
       </form>
       <!-- --------------------------------- -->
       

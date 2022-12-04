@@ -49,11 +49,26 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return productMapper.productInsert(prod);
 	}
-
+	
+	public int productDelete(int pnum) {
+		return productMapper.productDelete(pnum);
+	}
+	
+	@Override
+	public int productUpdate(ProductVO prod) {
+		return productMapper.productUpdate(prod);
+	}
+	
 	@Override
 	public List<ProductVO> productList() {
 		// TODO Auto-generated method stub
 		return productMapper.getProducts();
+	}
+
+	@Override
+	public ProductVO selectByPnum(int pnum) {
+		// TODO Auto-generated method stub
+		return productMapper.selectByPnum(pnum);
 	}
 
 }
