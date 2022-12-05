@@ -42,7 +42,7 @@ public class AdminController {
 	
 	//상품수정폼
 	@GetMapping("/prodEditForm")
-	public String prodEditForm9(Model m,@RequestParam(value= "pnum") int pnum) {
+	public String prodEditForm(Model m,@RequestParam(value= "pnum") int pnum) {
 		log.info(pnum);
 		//상위카테고리 model에 추가
 		List<CategoryVO> upCgList=adminService.getUpcategory();
@@ -104,6 +104,8 @@ public class AdminController {
 				}
 			}//
 			//log.info("업로드 이후 product==="+product);
+		}else {
+			log.info("pimage null Test");
 		}
 		int n = adminService.productInsert(product);
 		String str=(n>0)?"상품등록 성공":"등록 실패";
@@ -150,6 +152,8 @@ public class AdminController {
 					}
 				}
 			}
+		}else {
+			log.info("pimage null Test");
 		}
 		int n = adminService.productUpdate(prod);
 		
