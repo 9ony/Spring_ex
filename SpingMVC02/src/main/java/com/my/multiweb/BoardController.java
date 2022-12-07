@@ -1,6 +1,7 @@
 package com.my.multiweb;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,7 +68,7 @@ public class BoardController {
 			
 			//[3] 업로드 처리
 			try {
-				mfilename.transferTo(new File(upDir,mfilename.getOriginalFilename()));
+				mfilename.transferTo(new File(upDir,filename));
 				log.info("upDir==="+upDir);
 			}catch(Exception e) {
 				log.error("board write error===>"+e);
@@ -99,5 +101,24 @@ public class BoardController {
 		loc=(n>0)?"list":"javascript:histroy.back()";
 		
 		return util.addMsgLoc(m,str,loc); //msg를 반환
+	}
+	@GetMapping("/list")
+	public String boardList(Model m) {
+		//게시판 목록조회
+		List<BoardVO> boardArr=this.boardService.selectBoardAll(null);
+		m.addAttribute("boardArr",boardArr);
+		return "/board/boardList";
+	}
+	@GetMapping("/view/{num}")
+	public String boardView(Model m,@PathVariable("num") int num) {
+		log.info("num==="+num);
+		//조회수 증가
+		boardService.updateReadnum(num);
+		
+		BoardVO board=boardService.selectBoardByIdx(num);
+		m.addAttribute("board",board);
+		
+		
+		return "board/boardView";
 	}
 }

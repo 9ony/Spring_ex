@@ -12,4 +12,16 @@
 		,#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},${num},#{lev},#{sunbun})
 		<!-- refer에는 글번호를 넣는다 -->
 </insert>
+<!-- 게시판 글목록조회 -->
+<select id="selectBoardAll" resultType="Board" parameterType="map">
+	select * from spring_board order by num desc
+</select>
+<!-- 작성글 번호로 조회 -->
+<select id="selectBoardByIdx" resultType="Board" parameterType="_int">
+	select * from spring_board where num=#{value}
+</select>
+<!-- 조회수 업데이트 -->
+<update id="updateReadnum" parameterType="int">
+		update spring_board set readnum=readnum+1 where num=#{value}
+</update>
 </mapper>

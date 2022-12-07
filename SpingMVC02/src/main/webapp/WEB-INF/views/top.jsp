@@ -44,7 +44,7 @@
       </c:if>
       <c:if test="${loginUser ne null }"><!-- 로그인햇을경우 -->
 	      <li class="nav-item bg-primary">
-	      	<a class="nav-link text-white" href="#">${loginUser.userid}님 로그인 중...</a>	
+	      	<a class="nav-link text-white" href="${myctx }/user/myPage">${loginUser.userid}님 로그인 중...</a>	
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="${myctx }/logout ">Logout</a>
@@ -72,7 +72,7 @@
         <a class="nav-link" href="${myctx }/board/write">Board Form</a>
       </li>    
       <li class="nav-item">
-        <a class="nav-link" href="${myctx }/user/list">Board List</a>
+        <a class="nav-link" href="${myctx }/board/list">Board List</a>
       </li>  
     </ul>
   </div>  

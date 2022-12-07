@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- The Modal -->
-<script type="text/javascript" src="./js/userCheck.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/userCheck.js"></script>
 <div class="modal" id="loginModal">
   <div class="modal-dialog modal-sm modal-dialog-centered">
     <div class="modal-content">

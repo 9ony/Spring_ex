@@ -31,6 +31,10 @@ $(function(){
 		return true;
 	})
 });
+function reset_btn(){
+		alert('리셋합니다');
+		CKEDITOR.instances.content.setData("");
+	}
 </script>  
 <%
    String ctx = request.getContextPath();
@@ -87,7 +91,7 @@ $(function(){
       <tr>
          <td colspan="2">
             <button type="submit" id="btnWrite" class="btn btn-success">글쓰기</button>
-            <button type="reset" id="btnReset" class="btn btn-warning">다시쓰기</button>
+            <button type="reset" id="btnReset" class="btn btn-warning" onclick="reset_btn()">다시쓰기</button>
          </td>
       </tr>
    

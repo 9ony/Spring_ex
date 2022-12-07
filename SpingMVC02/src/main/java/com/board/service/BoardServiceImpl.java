@@ -27,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> selectBoardAll(Map<String, Integer> map) {
 		// TODO Auto-generated method stub
-		return null;
+		return boardMapper.selectBoardAll(map);
 	}
 
 	@Override
@@ -57,13 +57,13 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardVO selectBoardByIdx(Integer idx) {
 		// TODO Auto-generated method stub
-		return null;
+		return boardMapper.selectBoardByIdx(idx);
 	}
 
 	@Override
 	public int updateReadnum(Integer idx) {
 		// TODO Auto-generated method stub
-		return 0;
+		return boardMapper.updateReadnum(idx);
 	}
 
 	@Override
