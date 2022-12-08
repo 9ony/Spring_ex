@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="/top"/>
 
-<div class="container mt-3" style="height:600px;overflow: auto;">
+<div class="container mt-3">
 	<h1 class="text-center">Spring Board 내용보기</h1>
 	<c:if test="${board eq null }">
 		<div class="alert alert-danger my-5 text-center">
@@ -67,12 +67,55 @@
 		<input type="hidden" name="origin_fname" value="<c:out value="${board.originFilename}"/>">
 	</form>	
 	<!--  ------------------------------------------------------- -->
+	<!-- 편집 또는 삭제를 위한 폼 -->
+	<form name="frm" id="frm">
+		<input type="hidden" name="num" value="<c:out value="${board.num }"/>">
+		<input type="hidden" name="mode">
+		<div class="row mt-4" id="divPasswd" style="display:none">
+			<div class="col-md-3 offset-md-1 text-right">
+				<label for="passwd">글 비밀번호</label>
+			</div>
+			<div class="col-md-4">
+				<input type="password" name="passwd" id="passwd"
+				class="form-control" placeholder="Password" required>
+			</div>
+			<div class="col-md-3">
+				<button id="btn" class="btn btn-outline-primary"></button>
+			</div>
+		</div>
+	</form>
+	<!-- 답변달기 -->
+	<form id="reF" name="reF" action="../rewrite" method="post" >
+		<input type="hidden" name="num" value="<c:out value="${board.num }"/>">
+		<input type="hidden" name="subject" value="<c:out value="${board.subject }"/>">
+	</form>
 </div>
 
 <script>
 	//파일 다운로드 처리
 	function down(){
 		fileF.submit();		
+	}
+	//편집 삭제 처리
+	function go(flag){
+		if(flag==1){
+			frm.mode.value='edit';
+			$('#btn').text('글 수 정');
+			$('#divPasswd').show(500);
+			$('#passwd').focus();
+			frm.action='../edit';
+			frm.method='post';
+		}else if(flag==2){
+			frm.mode.value='delete';
+			$('#btn').text('글 삭 제');
+			$('#divPasswd').show(500);
+			$('#passwd').focus();
+			frm.action='../delete';
+			frm.method='post';
+		}
+	}
+	function goRe(){
+		reF.submit();
 	}
 </script>
 

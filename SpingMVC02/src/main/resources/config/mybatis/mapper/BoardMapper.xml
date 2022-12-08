@@ -14,7 +14,7 @@
 </insert>
 <!-- 게시판 글목록조회 -->
 <select id="selectBoardAll" resultType="Board" parameterType="map">
-	select * from spring_board order by num desc
+	select * from spring_board order by refer desc,sunbun asc
 </select>
 <!-- 작성글 번호로 조회 -->
 <select id="selectBoardByIdx" resultType="Board" parameterType="_int">
@@ -24,4 +24,41 @@
 <update id="updateReadnum" parameterType="int">
 		update spring_board set readnum=readnum+1 where num=#{value}
 </update>
+<!-- 글삭제 -->
+<delete id="deleteBoard" parameterType="int">
+	delete spring_board where num=#{value}
+</delete>
+<!-- 글수정 -->
+<update id="updateBoard" parameterType="Board">
+	update spring_board set name=#{name}, subject=#{subject}, content=#{content:VARCHAR},
+	passwd=#{passwd}
+	<if test="filename!=null and filename!=''">
+		, filename=#{filename}, filesize=#{filesize}, originFilename=#{originFilename}
+	</if>
+	<where>
+		num=#{num}
+	</where>
+</update>
+<!-- 답변글쓰기 1단계 부모글 refer,lev,sunbun 가져오기 -->
+<select id="selectRefLevSunbun" parameterType="int" resultType="Board">
+	select refer,lev,sunbun from spring_board where num=#{value}
+</select>
+<!-- 답변글쓰기 2단계 순번처리 -->
+<update id="updateSunbun" parameterType="Board">
+	update spring_board set sunbun= sunbun+1
+	where refer=#{refer} and sunbun > #{sunbun}
+</update>
+
+
+<!-- 답변글쓰기 3단계 -->
+<insert id="rewriteBoard" parameterType="Board">
+		<selectKey keyProperty="num" resultType="_int" order="BEFORE">
+			select spring_board_seq.nextval from dual
+		</selectKey>
+		insert into spring_board(num,name,passwd,subject,content,wdate,readnum,filename,
+		originFilename,filesize,refer,lev,sunbun)
+		values(#{num},#{name},#{passwd},#{subject},#{content:VARCHAR},sysdate,#{readnum}
+		,#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},${refer},#{lev},#{sunbun})
+		<!-- 답변글쓰기 refer에는 부모 글번호를 넣는다 -->
+</insert>
 </mapper>

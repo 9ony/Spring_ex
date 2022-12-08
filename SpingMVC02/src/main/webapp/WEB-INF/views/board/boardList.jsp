@@ -42,6 +42,12 @@
 						<c:out value="${board.num }"/>
 					</td>
 					<td class="sub">
+						<c:forEach var="k" begin="1" end="${board.lev }">
+							&nbsp;&nbsp;&nbsp;
+						</c:forEach>
+						<c:if test="${board.lev>0 }">
+							<img src="../images/re.png">
+						</c:if>
 						<%-- ${board.subject } <<text형태로 출력하는게아니다 script 넣으면 실행시킴 --%>
 						<a href="view/<c:out value="${board.num }"/>">
 						<c:if test="${fn:length(board.subject)>20}">

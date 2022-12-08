@@ -19,6 +19,7 @@ public class BoardVO {
 	private int readnum;
 	private String filename; //물리적 파일명
 	private String originFilename; //원본 파일명
+	private String old_filename; //이전 파일명
 	private long filesize;
 	
 	private int refer; //글 그룹번호
