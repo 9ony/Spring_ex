@@ -39,6 +39,10 @@ public class UserController {
 	public String modify() {
 		return "/member/modify";
 	}
+	@GetMapping("/user/myPage")
+	public String myPage() {
+		return "/member/myPage";
+	}
 	@PostMapping("/join")
 	public String joinEnd(Model m, @ModelAttribute("user") UserVO user) {
 		log.info("join === user :"+user);
@@ -134,7 +138,32 @@ public class UserController {
 		m.addAttribute("loc",loc);
 		return "msg";
 	}
-	
+	//회원수정my
+		@PostMapping("/user/userEdit")
+		public String updateMy(Model m, @ModelAttribute("user") UserVO user
+				, HttpSession session) {
+			log.info("userEdit Modelattr = >"+ user);
+			if(user.getName()==null||user.getPwd()==null||
+					user.getName().trim().isEmpty()||user.getPwd().trim().isEmpty()) {
+				return "redirect:userList";
+			}
+			int n = userService.updateUser(user);
+			
+			String str="";
+			String loc = "myPage";
+			if(n>0) {
+				str = "수정완료";
+				UserVO loginUser = userService.getUser(user.getIdx());
+				log.info("마이페이지 수정 = " + loginUser);
+				session.setAttribute("loginUser", loginUser);
+			}else {
+				str = "수정실패";
+			}
+			
+			m.addAttribute("message",str);
+			m.addAttribute("loc",loc);
+			return "msg";
+		}
 	//회원삭제
 	@PostMapping("/admin/userDel")
 	public String userDelete(@RequestParam(defaultValue="0") int didx) {
