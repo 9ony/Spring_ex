@@ -12,9 +12,40 @@
 		,#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},${num},#{lev},#{sunbun})
 		<!-- refer에는 글번호를 넣는다 -->
 </insert>
+
+<select id="getTotalCount" resultType="int" parameterType="Paging">
+	select count(num) from spring_board
+</select>
+
+<select id="selectBoardAllPaging" resultType="Board" parameterType="Paging">
+	<!-- select * from spring_board order by refer desc,sunbun asc -->
+	 select * from (
+	 	select row_number() over(order by refer desc, sunbun asc) rn,
+	 	spring_board.* from spring_board
+		)
+		<![CDATA[
+			where rn > #{start} and rn < #{end}
+		]]>
+		<!-- 부등호 등의 문자가 나올때는 CDATA Section으로 감싸자. CDATA는 Character Data라는
+		 의미. CDATA로 감싸진 부분은 xml문서로 파싱하지 않고 문자로 취급한다 -->
+		<!-- where rn &gt; #{start} and rn &lt; #{end} --><!-- 부등호를 &로 처리 -->
+ 		<!-- where rn between #{start} and #{end} --><!-- between처리 -->
+</select>
+
 <!-- 게시판 글목록조회 -->
 <select id="selectBoardAll" resultType="Board" parameterType="map">
-	select * from spring_board order by refer desc,sunbun asc
+	<!-- select * from spring_board order by refer desc,sunbun asc -->
+	 select * from (
+	 	select row_number() over(order by refer desc, sunbun asc) rn,
+	 	spring_board.* from spring_board
+		)
+		<![CDATA[
+			where rn > #{start} and rn < #{end}
+		]]>
+		<!-- 부등호 등의 문자가 나올때는 CDATA Section으로 감싸자. CDATA는 Character Data라는
+		 의미. CDATA로 감싸진 부분은 xml문서로 파싱하지 않고 문자로 취급한다 -->
+		<!-- where rn &gt; #{start} and rn &lt; #{end} --><!-- 부등호를 &로 처리 -->
+ 		<!-- where rn between #{start} and #{end} --><!-- between처리 -->
 </select>
 <!-- 작성글 번호로 조회 -->
 <select id="selectBoardByIdx" resultType="Board" parameterType="_int">

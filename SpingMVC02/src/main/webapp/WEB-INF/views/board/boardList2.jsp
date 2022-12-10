@@ -75,18 +75,38 @@
 		<tfoot>
 			<tr>
 				<td colspan="3" class="text-center">
-					<c:forEach var="i" begin="1" end="${pageCount }">
-						<a href='list?cpage=<c:out value="${i }"/>'> 
+				<ul class="pagination justify-content-center">
+				<!-- 이전 page -->
+				<c:if test="${paging.prevBlock>0 }">
+					<li class="page-item">
+					<a class='page-link' href="list?cpage=<c:out value="${paging.prevBlock }"/>">◀</a>
+					</li>
+				</c:if>
+				<!-- 페이지개수 -->
+				<c:forEach var="i" begin="${paging.prevBlock+1 }" end="${paging.nextBlock-1 }">
+					<c:if test="${i <= paging.pageCount }">
+					<!-- active를 주면 현재페이지 li 불들어옴 c:if로 조건처리 -->
+					<li class="page-item <c:if test='${i eq paging.cpage }'>active</c:if>">
+						<a class='page-link' href='list?cpage=<c:out value="${i }"/>'> 
 							<c:out value="${i }"/> 
 						</a>
-					</c:forEach>
+					</li>
+					</c:if>
+				</c:forEach>
+				<!-- 다음 page -->
+				<c:if test="${paging.nextBlock<paging.pageCount }">
+					<li class="page-item">
+					<a class='page-link' href="list?cpage=<c:out value="${paging.nextBlock }"/>">▶</a>
+					</li>
+				</c:if>
+				</ul>
 				</td>
 				<td colspan="2" class="text-right">
-				총 게시글 수 : <b></b><c:out value="${totalCount }"/></b><br>
-				<c:out value="${i }"/> /<c:out value="${pageCount }"/>
+				총 게시글 수 : <b></b><c:out value="${paging.totalCount }"/></b><br>
+				<span class="text-danger"><c:out value="${paging.cpage }"/></span> /<c:out value="${paging.pageCount }"/>
 				</td>
 			</tr>
-		</tfoot>
+		</tfoot> 
 	</table>
 </div>
 <c:import url="/foot" />

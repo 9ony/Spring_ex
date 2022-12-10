@@ -1,7 +1,9 @@
 package com.my.multiweb;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.board.model.BoardVO;
+import com.board.model.PagingVO;
 import com.board.service.BoardService;
 import com.common.CommonUtil;
 
@@ -99,8 +102,11 @@ public class BoardController {
 		String str="";
 		String loc="";
 		if("write".equals(board.getMode())) {
+			for(int i = 0; i<30 ; i++) {
 			n=this.boardService.insertBoard(board);
+			}
 			str = "글쓰기 ";
+			
 		}else if("rewrite".equals(board.getMode())) {
 			n=this.boardService.rewriteBoard(board);
 			str= "답글 쓰기 ";
@@ -114,10 +120,59 @@ public class BoardController {
 		return util.addMsgLoc(m,str,loc); //msg를 반환
 	}
 	@GetMapping("/list")
-	public String boardList(Model m) {
+	public String boardListPaging(Model m , @ModelAttribute("page") PagingVO page) {
+		log.info("page====>"+page);
+		int totalCount=boardService.getTotalCount(page);
+		page.setTotalCount(totalCount);
+		page.setPageSize(5);
+		page.setPagingBlock(5);
+		
+		page.init();
+		
 		//게시판 목록조회
-		List<BoardVO> boardArr=this.boardService.selectBoardAll(null);
+		List<BoardVO> boardArr=this.boardService.selectBoardAllPaging(page);
 		m.addAttribute("boardArr",boardArr);
+		m.addAttribute("paging",page);
+		return "board/boardList2";
+	}
+	
+	@GetMapping("/list_old")
+	public String boardList(Model m , @RequestParam(defaultValue="1") int cpage) {
+		//cpage(현재페이지) 기본값 1
+		log.info("cpage===="+cpage);
+		if(cpage<1) { //0이나 음수로들어올때 첫페이지로
+			cpage=1;
+		}
+		//페이지 총게시글 조회
+		int totalCount = boardService.getTotalCount(null);
+		
+		//페이지크기 설정
+		int pageSize=5; // 1페이지당 글개수
+		int pageCount=(totalCount-1)/pageSize+1; //(페이지개수)
+		
+		if(cpage>pageCount) { //현재페이지가 pageCount보다 크면 마지막페이지로
+			cpage=pageCount;
+		}
+		//[1] between
+		/*
+		int end=cpage*pageSize;
+		int start=end-(pageSize-1);
+		*/
+		
+		
+		//[2] 부등호
+		int start = (cpage-1)*pageSize;
+		int end = start+(pageSize+1);
+		
+		
+		Map<String,Integer> map=new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		//게시판 목록조회
+		List<BoardVO> boardArr=this.boardService.selectBoardAll(map);
+		m.addAttribute("boardArr",boardArr);
+		m.addAttribute("totalCount",totalCount);
+		m.addAttribute("pageCount",pageCount);
 		return "/board/boardList";
 	}
 	@GetMapping("/view/{num}")
