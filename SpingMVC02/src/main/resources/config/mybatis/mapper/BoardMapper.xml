@@ -13,15 +13,35 @@
 		<!-- refer에는 글번호를 넣는다 -->
 </insert>
 
+<!-- 검색시 사용할 where절을 findWhere로 등록한뒤 재사용하자 -->
+<sql id="findWhere">
+	<if test="findType!=null and findKeyword!=''">
+		<where>
+			<if test="findType==1"> <!-- 글제목 -->
+				subject like '%'||#{findKeyword}||'%'
+			</if>
+			<if test="findType==2"> <!-- 작성자 -->
+				name like '%'||#{findKeyword}||'%'
+			</if>
+			<if test="findType==3"> <!-- 글내용 -->
+				content like '%'||#{findKeyword}||'%'
+			</if>
+		</where>
+	</if>
+</sql>
+
 <select id="getTotalCount" resultType="int" parameterType="Paging">
 	select count(num) from spring_board
+	
+	<include refid="findWhere"/>
+	
 </select>
-
 <select id="selectBoardAllPaging" resultType="Board" parameterType="Paging">
 	<!-- select * from spring_board order by refer desc,sunbun asc -->
 	 select * from (
 	 	select row_number() over(order by refer desc, sunbun asc) rn,
 	 	spring_board.* from spring_board
+	 	<include refid="findWhere"/>
 		)
 		<![CDATA[
 			where rn > #{start} and rn < #{end}

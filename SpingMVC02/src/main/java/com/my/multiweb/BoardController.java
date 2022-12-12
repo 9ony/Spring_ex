@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -120,8 +122,37 @@ public class BoardController {
 		return util.addMsgLoc(m,str,loc); //msg를 반환
 	}
 	@GetMapping("/list")
-	public String boardListPaging(Model m , @ModelAttribute("page") PagingVO page) {
+	public String boardListPaging(Model m , @ModelAttribute("page") PagingVO page,
+			HttpServletRequest req,@RequestHeader("User-Agent") String userAgent) {
+		String myctx=req.getContextPath();
+		
+		HttpSession ses=req.getSession();
+		log.info("session ===>"+ses);
 		log.info("page====>"+page);
+		//총게시글수
+		int totalCount=boardService.getTotalCount(page);
+		page.setTotalCount(totalCount);
+		//page.setPageSize(page.getPageSize()); //한 페이지 당 보여줄 목록 개수 <==파라미터로 받는다
+		page.setPagingBlock(5);
+		
+		page.init(ses);
+		
+		//2. 게시글 목록 가져오기 or 검색한 게시글 목록 가져오기
+		List<BoardVO> boardArr=this.boardService.selectBoardAllPaging(page);
+		//3. 페이지 네비게이션 문자열 받아오기
+		String loc="board/list";
+		String pageNavi=page.getPageNavi(myctx, loc ,userAgent);
+		
+		m.addAttribute("pageNavi", pageNavi);
+		m.addAttribute("paging",page);
+		m.addAttribute("boardArr", boardArr);
+		return "board/boardList3";
+	}
+	/*
+	@GetMapping("/list_old2")
+	public String boardListPaging2(Model m , @ModelAttribute("page") PagingVO page) {
+		log.info("page====>"+page);
+		//총게시글수
 		int totalCount=boardService.getTotalCount(page);
 		page.setTotalCount(totalCount);
 		page.setPageSize(5);
@@ -131,11 +162,12 @@ public class BoardController {
 		
 		//게시판 목록조회
 		List<BoardVO> boardArr=this.boardService.selectBoardAllPaging(page);
+
 		m.addAttribute("boardArr",boardArr);
 		m.addAttribute("paging",page);
 		return "board/boardList2";
 	}
-	
+	*/
 	@GetMapping("/list_old")
 	public String boardList(Model m , @RequestParam(defaultValue="1") int cpage) {
 		//cpage(현재페이지) 기본값 1
