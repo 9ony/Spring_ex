@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-3.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -21,7 +23,22 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.mongo.web" />
+	<context:component-scan base-package="com.mongo.web,com.mongo.posts" />
+	
+	<!-- mongo setting =========================-->
+	<!-- [1]mongo client bean등록 -->
+	<mongo:mongo-client id="mongoClient" host="localhost" port="27017"/>
+	<!-- [2]MongoDbFactory bean등록 -->
+	<mongo:db-factory id="mongoDbFactory" dbname="mydb" mongo-client-ref="mongoClient"/>
+	<!-- [3]mongodb저장하면 _class 필드가 자동생성되는데 그걸 안하기위한 설정 -->
+	
+	<!-- [4]mongoTemplate bean등록 -->
+	<beans:bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<beans:constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+	</beans:bean>
+	
+	<!-- [5] @Repository가 붙은 클래스에서 발생되는 MongoException을 해석할 PostProcessor정의 -->
+	<beans:bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 	
 	
 	
