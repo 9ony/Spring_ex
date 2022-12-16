@@ -23,7 +23,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.mongo.web,com.mongo.posts" />
+	<context:component-scan base-package="com.mongo.web,com.mongo.posts,com.mongo.melon" />
 	
 	<!-- mongo setting =========================-->
 	<!-- [1]mongo client bean등록 -->
