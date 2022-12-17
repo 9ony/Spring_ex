@@ -69,3 +69,6 @@ admin.properties
 실습예제.txt
 #image
 */webapp/images/
+
+#db 정보 파일 제외
+.propertise
