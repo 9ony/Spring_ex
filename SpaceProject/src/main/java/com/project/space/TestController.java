@@ -3,6 +3,7 @@ package com.project.space;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/*
 @Controller
 public class TestController {
 	@GetMapping("/home")
@@ -10,3 +11,4 @@ public class TestController {
 		return "home/index";
 	}
 }
+*/

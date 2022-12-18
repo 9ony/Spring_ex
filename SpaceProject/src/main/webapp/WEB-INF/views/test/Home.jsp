@@ -1,11 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Restoran - Bootstrap Restaurant Template</title>
+    <title>Space</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -32,8 +30,22 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-</head>
 
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/ce9db0be33.js" crossorigin="anonymous"></script>
+    <script>
+	const sel_menu = function(m_name){
+		fetch(m_name).then(function(response){
+                  response.text().then(function(text){
+                  $('tab').html(text);
+                  $('#selmenu').html(m_name);
+                  $('li[id$="Tab"]').removeClass('active');
+                  $('#'+m_name+'Tab').addClass('active');
+                  })
+              })
+		}
+	</script>
+</head>
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
@@ -43,8 +55,6 @@
             </div>
         </div>
         <!-- Spinner End -->
-
-
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
@@ -58,33 +68,13 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
                         <!-- Home Reservation Services Contact Pages MyPage MyReservation -->
-                        <li class="nav-item nav-link" onclick = "
-                            fetch('HomeAjax').then(function(response){
-                            response.text().then(function(text){
-                            document.querySelector('tab').innerHTML = text;
-                            })
-                        })">Home</li>
+                        <li class="nav-item nav-link" id="HomeTab" onclick = "sel_menu('Home')">Home</li>
+                        
+                        <li class="nav-item nav-link" id="ReservationTab" onclick = "sel_menu('Reservation')">Reservation</li>
 
-                        <li class="nav-item nav-link" onclick = "
-                            fetch('Reservation').then(function(response){
-                            response.text().then(function(text){
-                            document.querySelector('tab').innerHTML = text;
-                            })
-                        })">Reservation</li>
+                        <li class="nav-item nav-link" id="ServicesTab" onclick = "sel_menu('Services')">Services</li>
 
-                        <li class="nav-item nav-link" onclick = "
-                            fetch('Services').then(function(response){
-                            response.text().then(function(text){
-                            document.querySelector('tab').innerHTML = text;
-                            })
-                        })">Services</li>
-
-                        <li class="nav-item nav-link" onclick = "
-                            fetch('Contact').then(function(response){
-                            response.text().then(function(text){
-                            document.querySelector('tab').innerHTML = text;
-                            })
-                        })">Contact</li>
+                        <li class="nav-item nav-link" id="ContactTab" onclick = "sel_menu('Contact')">Contact</li>
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
@@ -100,32 +90,20 @@
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
                 <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Booking</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center text-uppercase">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Booking</li>
-                        </ol>
-                    </nav>
+                    <h1 class="display-3 text-white mb-3 animated slideInDown" id="selmenu">Home</h1>
                 </div>
             </div>
         </div>
         <!-- Navbar & Hero End -->
 
 
-        <!-- Reservation Start -->
         <tab>
-            <!-- defalut page ì¤ì  -->
-            <script>
-                fetch('HomeAjax').then(function(response){
-                    response.text().then(function(text){
-                        document.querySelector('tab').innerHTML = text;
-                    })
-                })
-            </script>
+            <!-- defalut page 설정 -->
+
         </tab>
-        <!-- Reservation Start -->
+
+
+      
         
 
         <!-- Footer Start -->
