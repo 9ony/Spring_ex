@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.mongo.melon.domain.CommonUtil;
 import com.mongo.melon.domain.MelonVO;
+import com.mongo.melon.domain.SumVO;
 import com.mongo.melon.mapper.MelonMapper;
 
 @Service
@@ -61,9 +62,9 @@ public class MelonServiceImpl implements MelonService {
 	}
 
 	@Override
-	public List<MelonVO> getCntBySinger() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<SumVO> getCntBySinger() throws Exception {
+		String collectionName="Melon_"+CommonUtil.getDateTime("yyyyMMdd");
+		return this.mMapper.getCntBySinger(collectionName);
 	}
 	@Override
 	public List<MelonVO> getMelonListBySinger(String colName, String singer) throws Exception{

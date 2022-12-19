@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mongo.melon.domain.MelonVO;
+import com.mongo.melon.domain.SumVO;
 import com.mongo.melon.service.MelonService;
 
 import lombok.extern.log4j.Log4j;
@@ -51,9 +52,11 @@ public class MelonController {
 		return this.mService.getMelonList();
 	}
 	
-	
-	
-	
+	@GetMapping(value="/singerCnt", produces = "application/json")
+	public List<SumVO> getSingerSongCount() throws Exception{
+		List<SumVO> arr=this.mService.getCntBySinger();
+		return arr;
+	}
 
 }
 

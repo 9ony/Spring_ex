@@ -3,6 +3,7 @@ package com.mongo.melon.mapper;
 import java.util.List;
 
 import com.mongo.melon.domain.MelonVO;
+import com.mongo.melon.domain.SumVO;
 
 public interface MelonMapper {
 	
@@ -12,7 +13,7 @@ public interface MelonMapper {
 	
 	List<MelonVO> getMelonList(String colName) throws Exception;
 	
-	List<MelonVO> getCntBySinger(String colName) throws Exception;
+	List<SumVO> getCntBySinger(String colName) throws Exception;
 	
 	List<MelonVO> getMelonListBySinger(String colName, String singer) throws Exception;
 }
