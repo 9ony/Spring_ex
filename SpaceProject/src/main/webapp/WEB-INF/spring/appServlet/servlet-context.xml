@@ -30,14 +30,8 @@
 	
 	
 	<!-- 단순 뷰이동 처리 -->
-	<view-controller path="/about" view-name="home/about"/>
-	<view-controller path="/booking" view-name="home/booking"/>
-	<view-controller path="/contact" view-name="home/contact"/>
-	<view-controller path="/menu" view-name="home/menu"/>
-	<view-controller path="/service" view-name="home/service"/>
-	<view-controller path="/team" view-name="home/team"/>
-	<view-controller path="/testimonial" view-name="home/testimonial"/>
 	<view-controller path="/top" view-name="top"/>
+	<view-controller path="/foot" view-name="foot"/>
 	
 	
 </beans:beans>
