@@ -8,6 +8,53 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CommonUtil {
+
+	// null값을 빈문자열로 치환
+	public static String nvl(String str, String chg_str) {
+		String res = "";
+		if (str == null) {
+			res = chg_str;
+		} else if (str.equals("")) {
+			res = chg_str;
+		} else {
+			res = str;
+		}
+		return res;
+	}// ----------------------------------------
+
+	public static String nvl(String str) {
+		return nvl(str, "");
+	}// ----------------------------------------
+
+	// 알파벳과 공백을 제외하고 모두 제거하는 메서드
+	public static String remainAlphaSpace(String str) {
+		if (str != null)
+//				String replace_text = text.replaceAll("[^가-힣a-zA-Z0-9]", " ");
+			str = str.replaceAll("[^a-zA-Z ]", " ");
+		return str;
+	}// ----------------------------------------
+		// 한글,알파벳, 숫자가 아닌 문자는 빈공백으로 치환한다
+
+	public static String remainKorAlpha(String str) {
+		if (str != null)
+			str = str.replaceAll("[^가-힣a-zA-Z0-9]", " ");
+		return str;
+	}// ----------------------------------------
+		// 한글과 공백이 아닌 문자는 빈문자로 치환
+
+	public static String remainKorSpace(String str) {
+		if (str != null)
+			str = str.replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣 ]", " ");
+		return str;
+	}// ----------------------------------------
+
+	// 공백문자가 여러개 있을 경우 빈문자열로 대치
+	public static String spaceToEmpty(String str) {
+		if (str != null)
+			str = str.replaceAll("\\s+", " ");
+		return str;
+	}// ----------------------------------------
+
 	
 	public Map<String,Long> getFrequency(String str) {
 		//String [] tks=str.toLowerCase().split("[\\.\\s]+");		

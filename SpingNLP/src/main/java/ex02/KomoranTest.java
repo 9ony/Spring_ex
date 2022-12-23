@@ -19,6 +19,25 @@ import kr.co.shineware.nlp.komoran.model.KomoranResult;
 import lombok.extern.log4j.Log4j;
 
 //https://github.com/shineware/KOMORAN
+/*코모란 라이브러리 사용시 저장소 repository도 설정해줘야한다
+ * ====pom.xml================================
+ * <!-- Komoran repository -->
+	<repositories>
+		<repository>
+			<id>jitpack.id</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	
+	<!--dependencies 부분에 아래 라이브러리 등록-->
+	<!-- https://mvnrepository.com/artifact/com.github.shin285/KOMORAN -->
+		<dependency>
+			<groupId>com.github.shin285</groupId>
+			<artifactId>KOMORAN</artifactId>
+			<version>3.3.4</version>
+		</dependency>
+ * */
+
 @Log4j
 public class KomoranTest {
 	
