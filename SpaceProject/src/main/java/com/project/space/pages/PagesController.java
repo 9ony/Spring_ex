@@ -8,18 +8,18 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 public class PagesController {
-	@GetMapping("/MyPage")
-	public String myPage() {
-		log.info("mypage connect");
-		return "ajax/pages/MyPage";
-	}
-	@GetMapping("/MyReservation")
-	public String myreservation() {
-		log.info("connected myreservation.");
-		return "ajax/pages/MyReservation";
-	}
+//	@GetMapping("/MyPage")
+//	public String myPage() {
+//		log.info("mypage connect");
+//		return "ajax/pages/MyPage";
+//	}
+//	@GetMapping("/MyReservation")
+//	public String myreservation() {
+//		log.info("connected myreservation.");
+//		return "ajax/pages/MyReservation";
+//	}
 	@GetMapping("/MyModify")
-	public String myModify() {
+	public String myModify() { 
 		log.info("mypage connect");
 		return "ajax/pages/MyModify";
 	}

@@ -1,84 +1,169 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+<script>
+const cal=function(yy,mm){
+	//alert(yy+":"+mm);
+	
+	$.ajax({
+		type:'get',
+		url:'ReservationAjax?year='+yy+'&month='+mm,
+		dataType:'html',
+		success:function(res){
+			$('#calendar').html("");
+			$('#calendar').html(res);
+		},
+		error:function(err){
+			alert('err: '+err.status);
+		}
+			
+			
+			
+	})
+}
 
-<!-- Service Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Our Services</h5>
-                <h1 class="mb-5">Explore Our Services</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                            <h5>Master Chefs</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
-                            <h5>Quality Food</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-cart-plus text-primary mb-4"></i>
-                            <h5>Online Order</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                            <h5>24/7 Service</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                            <h5>Master Chefs</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
-                            <h5>Quality Food</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-cart-plus text-primary mb-4"></i>
-                            <h5>Online Order</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                            <h5>24/7 Service</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+const aa=function(yy,mm,dd){
+	alert(yy+":"+mm+":"+dd)
+}
+
+</script>
+
+<div class="reserveMember_room_title">예약할 공간 번호 들어갈 자리(히든으로 넘어가야함)</div>
+
+<div class="reserveMember_room_name">회원에게 보여줄 현재 예약할 공간 이름 들어갈 자리</div>
+
+
+<div class="calendar" id="calendar">
+	<div>
+		<a class="before_after_year" onclick="cal(${today_info.search_year-1},${today_info.search_month})">
+			&lt;&lt;		
+		</a>
+		<a class="before_after_month" onclick="cal(${today_info.search_year},${today_info.search_month-1})">
+			prev		
+		</a>
+		<span class="this_month">
+			&nbsp; ${today_info.search_year}.
+			<c:if test="${today_info.search_month<10 }">0</c:if>${today_info.search_month}
+		</span>
+		<a class="before_after_year" href="Reservation?year=${today_info.after_year}&month=${today_info.after_month}">
+			next		
+		</a>
+		<a class="before_after_year" href="Reservation?year=${today_info.after_year+1}&month=${today_info.after_month-1}">
+			&gt;&gt;		
+		</a>
+	</div>
+	<table class="calendar_body">
+	<thead>
+		<tr>
+			<td class="sunday">SUN</td>
+			<td class="day">MON</td>
+			<td class="day">TUE</td>
+			<td class="day">WED</td>
+			<td class="day">THU</td>
+			<td class="day">FRI</td>
+			<td class="saturday">SAT</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<c:forEach var="dList" items="${dateList}" varStatus="date_status">
+				<c:choose>
+					<c:when test="${dList.value=='today'}">
+						<td class="today">
+							<div class="date" onclick="aa(${dList.year},${dList.month},${dList.date})">${dList.date}</div>
+							<div></div>
+						</td>
+					</c:when>
+					<c:when test="${date_status.index%7==6}">
+						<td class="saturday">
+							<div class="sat">${dList.date}</div>
+							<div></div>
+						</td>
+					</c:when>
+					<c:when test="${date_status.index%7==0}">
+						<td class="sunday">
+							<div class="sun">${dList.date}</div>
+							<div></div>
+						</td>
+					</c:when>
+					<c:otherwise>
+						<td class="normal_day">
+							<div class="date">${dList.date}</div>
+						</td>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</tr>
+	</tbody>
+	</table>
+</div>
+
+
+<div>
+
+	<hr class="gray_line mt-5 mb-5">
+</div>
+
+<div style="margin: 0 auto; margin-left: 40px; text-align: left;">
+<div>
+	<div class="reservationDetail_medium_text mt-3 mb-3">
+		<h4><strong>예약</strong></h4>
+	</div>
+	<table class="table table-borderless reservationDetail_small_text">
+		<tr>
+			<td>
+				<strong>예약날짜</strong>
+			</td>
+			<td>여기로 달력에서 찍은 날짜 들어가게 할꺼임
+			</td>
+	</tr>
+	<tr>
+		<td>
+			<strong>대여시간</strong>
+		</td>
+		<td>체크인-체크아웃 시간
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<strong>예약자 이름</strong>
+		</td>
+		<td>이건 회원 db에서 가져와야됨
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<strong>예약자 연락처</strong>
+		</td>
+		<td>이것도 회원 db에서 가져와서 띄워줌(변경은 안됨)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<strong>예약인원</strong>
+		</td>
+		<td>이거는 입력받아야됨
+		</td>
+	</tr>
+</table>
+
+<hr class="gray_line mt-5">
+
+<div class="reservationDetail_medium_text mt-5 mb-3">
+	<h4><strong>결제 정보</strong></h4>
+</div>
+<table class="table table-borderless reservationDetail_small_text">
+	<tr>
+		<td>
+			<strong>결제 수단</strong>
+		</td>
+		<td></td>
+	</tr>
+
+	
+		</table>
+		<div class="mb-5"></div>
+	</div>
+</div>
+>>>>>>> origin/main

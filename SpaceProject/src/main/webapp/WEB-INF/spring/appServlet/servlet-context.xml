@@ -15,10 +15,12 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/css/**" location="/css/" />
-	<resources mapping="/js/**" location="/js/" />
 	<resources mapping="/img/**" location="/img/" />
-	<resources mapping="/lib/**" location="/lib/" />
-	<resources mapping="/scss/**" location="/scss/" />
+	<resources mapping="/js/**" location="/js/" />
+	<resources mapping="/**" location="/" />
+	<resources mapping='/scss/**' location='/scss/' />
+	<resources mapping='/lib/**' location='/lib/' />
+	<resources mapping='/css_Reservation/**' location='/css_Reservation/' />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -30,8 +32,8 @@
 	
 	
 	<!-- 단순 뷰이동 처리 -->
-	<view-controller path="/top" view-name="top"/>
-	<view-controller path="/foot" view-name="foot"/>
+	<!-- <view-controller path="/top" view-name="top"/>
+	<view-controller path="/foot" view-name="foot"/> -->
 	
 	
 </beans:beans>

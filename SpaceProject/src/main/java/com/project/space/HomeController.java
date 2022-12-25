@@ -1,55 +1,62 @@
 package com.project.space;
 
-import java.util.Map;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+
+/**
+ * Handles requests for the application home page.
+ */
 @Controller
 public class HomeController {
-private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	
-	// HOME
+	// MainHome
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		logger.info("connected index.");
+	public String Mainhome(Model model) {
+		logger.info("connected Mainhome.");
 		return "MainHome";
 	}
 
-	//Reservation
-	@RequestMapping(value = "/Reservation", method = RequestMethod.GET)
-	public String services(Model model) {
-		logger.info("connected Reservation.");
-		model.addAttribute("selmenu", "Reservation");
-		return "ajax/Reservation";
+	// MainHome
+	@RequestMapping(value = "/MainHome", method = RequestMethod.GET)
+	public String MainHome(Model model) {
+		logger.info("connected MainHome.");
+		return "MainHome2";
 	}
+	
+	// Home
+	@RequestMapping(value = "/Home", method = RequestMethod.GET)
+	public String home(Model model) {
+		logger.info("connected Home.");
+		return "ajax/Home";
+	}
+	
+
+	//Reservation
+//	@RequestMapping(value = "/Reservation", method = RequestMethod.GET)
+//	public String services(Model model) {
+//		logger.info("connected Reservation.");
+//		return "ajax/Reservation";
+//	}
 
 	//Services
 	@RequestMapping(value = "/Services", method = RequestMethod.GET)
 	public String Services(Model model) {
 		logger.info("connected Services.");
-		model.addAttribute("selmenu", "Services");
-		model.addAttribute("test", "테스트입니다");
 		return "ajax/Services";
-	}
-	//Services
-	@GetMapping(value="/Services/test",produces = "application/json")
-	@ResponseBody
-	public ModelMap Servicesbtn2(@RequestParam("q") String query) {
-		logger.info("connected Services test.");
-		logger.info("query= "+query);
-		ModelMap map = new ModelMap();
-		map.put("test", query);
-		return map;
 	}
 
 	//Contact
@@ -59,36 +66,58 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 		return "ajax/Contact";
 	}
 
-//	//Mypage
-//	@RequestMapping(value = "/MyPage", method = RequestMethod.GET)
-//	public String mypage(Model model) {
-//		logger.info("connected mypage.");
-//		return "ajax/MyPage";
-//	}
-//
-//	//MyReservation
-//	@RequestMapping(value = "/MyReservation", method = RequestMethod.GET)
-//	public String myreservation(Model model) {
-//		logger.info("connected myreservation.");
-//		return "ajax/MyReservation";
-//	}
-
-	// for test mapping
-	@RequestMapping(value = "/index12", method = RequestMethod.GET)
-	public String index12(Model model) {
-		logger.info("connected index12.");
-		return "ajax/index12";
+	
+	@RequestMapping(value = "/MyPage", method = RequestMethod.GET)
+	public String mypage(Model model) {
+		logger.info("connected mypage.");
+		return "ajax/Pages/MyPage";
 	}
 
-	@RequestMapping(value = "/Home", method = RequestMethod.GET)
-	public String HomeAjax(Model model) {
-		logger.info("connected HomeAjax.");
-		return "ajax/Home";
+	//MyReservation mapping 안됐음
+	@RequestMapping(value = "/MyReservation", method = RequestMethod.GET)
+	public String myreservation(Model model) {
+		logger.info("connected myreservation.");
+		return "ajax/Pages/MyReservation";
 	}
+	
 	@RequestMapping(value = "/Login", method = RequestMethod.GET)
-	public String myLogin(Model model) {
-		logger.info("connected LoginAjax.");
+	public String mylogin(Model model) {
+		logger.info("connected Login.");
 		return "ajax/Login";
 	}
+	
+	@RequestMapping(value="/Join", method=RequestMethod.GET)
+	public String Join(Model model) {
+		logger.info("connected Join.");
+		return "ajax/Join";
+	}
+	
+	@GetMapping("/adminpage")
+	public String adminPage() {
+      
+		return "ajax/Pages/AdminPage";
+    }
+	  
+	@GetMapping("/userlist")
+	public String userList() {
+	      
+		return "ajax/User/UserList";
+	}
+	@GetMapping("/userbooking")
+	public String userBooking() {
+	      
+		return "ajax/User/UserBooking";
+	}
+	@GetMapping("/hostlist")
+	public String hostList() {
+	      
+		return "ajax/Host/HostList";
+	}
+	@GetMapping("/hostupload")
+	public String hostUpload() {
+	      
+		return "ajax/Host/HostUpload";
+	}
 
+	
 }

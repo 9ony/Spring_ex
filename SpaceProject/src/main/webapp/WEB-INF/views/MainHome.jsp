@@ -28,10 +28,14 @@
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
+    
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    
+    
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/ce9db0be33.js" crossorigin="anonymous"></script>
@@ -83,11 +87,18 @@
                             <div class="dropdown-menu m-0">
                                 <a href="javascript:sel_menu('MyPage')" class="dropdown-item">MyPage</a>
                                 <a href="javascript:sel_menu('MyReservation')" class="dropdown-item">MyReservation</a>
+                                <a href="javascript:sel_menu('MyZimm')" class="dropdown-item">MyZimm</a>
+                                <a href="javascript:sel_menu('MyReviewList')" class="dropdown-item">MyReviewList</a>
+                                <a href="javascript:sel_menu('MyReservationCheck')" class="dropdown-item">MyReservationCheck</a>
+                                <a href="javascript:sel_menu('MySpaceEdit')" class="dropdown-item">MySpaceEdit</a>
+                                <a href="javascript:sel_menu('MySpaceInsert')" class="dropdown-item">MySpaceInsert</a>
+                                <a href="javascript:sel_menu('MySpaceList')" class="dropdown-item">MySpaceList</a>
+                                <a href="javascript:sel_menu('AdminPage')" class="dropdown-item">AdminPage</a>
                             </div>
                         </div>
                     </div>
                     <a href="javascript:sel_menu('Login')" class="btn btn-primary py-2 px-4">로그인</a>
-                </div>
+                   </div>
             </nav>
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
