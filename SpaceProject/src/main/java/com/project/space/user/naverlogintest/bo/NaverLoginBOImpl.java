@@ -20,8 +20,8 @@ import lombok.extern.log4j.Log4j;
 @Service
 @Log4j
 public class NaverLoginBOImpl implements NaverLoginBO{
-	private final static String CLIENT_ID = "";
-	private final static String CLIENT_SECRET = "";
+	private final static String CLIENT_ID = "클라이언트ID";
+	private final static String CLIENT_SECRET = "클라이언트시크릿키";
 	private final static String REDIRECT_URI = "http://localhost:9090/space/NaverCallback";
 	private final static String SESSION_STATE = "oauth_state";
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
@@ -62,7 +62,7 @@ public class NaverLoginBOImpl implements NaverLoginBO{
 			OAuth2AccessToken accessToken;
 			try {
 				accessToken = oauthService.getAccessToken(code);
-				log.info("token값"+accessToken);
+				log.info("token값=="+accessToken);
 				return accessToken;
 			} catch (NullPointerException e) {
 				return null;
