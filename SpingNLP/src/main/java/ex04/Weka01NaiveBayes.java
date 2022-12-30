@@ -46,7 +46,7 @@ public class Weka01NaiveBayes {
 		try {
 			eval=new Evaluation(irisData);
 			eval.crossValidateModel(model, irisData, numfolds, new Random(1));
-			//같은 값이 나오는지 확인하기위해 sedd값을 넣고 원래는 랜덤한값을 넣어줌!!
+			//같은 값이 나오는지 확인하기위해 seed값을 넣고 원래는 랜덤한값을 넣어줌!!
 			String res=eval.toSummaryString();
 			System.out.println(res);
 		} catch (Exception e) {
