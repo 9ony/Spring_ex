@@ -1,5 +1,8 @@
 package com.project.space;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
@@ -102,6 +104,21 @@ public class GonTestCont {
 			return new ModelAndView("ajax/NaverCallback","result",nlVO);
 		}
 		//return new ModelAndView("ajax/NaverCallback", "result", nlVO);
+	}
+	@GetMapping("/NaverDelete")
+	public String naverDelete(HttpSession session) throws Exception{
+		OAuth2AccessToken ReadSessionToken = (OAuth2AccessToken) session.getAttribute("naver_oauthToken");
+		//log.info("NaverDelete // access_token ===>"+ReadSessionToken.getParameter("access_token"));
+		log.info(ReadSessionToken.getAccessToken());
+		String deleteTokenUrl = naverLoginBO.NaverDeleteToken(ReadSessionToken.getAccessToken());
+		log.info("deleteTokenUrl====>"+deleteTokenUrl);
+		URL obj = new URL(deleteTokenUrl); // 호출할 url
+        HttpURLConnection con = (HttpURLConnection)obj.openConnection();
+        con.setRequestMethod("GET");
+        con.connect();
+		log.info(con.getResponseCode());
+		session.invalidate();
+		return "redirect:/";
 	}
 	@PostMapping("/NaverJoin")
 	public String memberInfoAdd(Model m , @ModelAttribute Mem_InfoVO vo) {

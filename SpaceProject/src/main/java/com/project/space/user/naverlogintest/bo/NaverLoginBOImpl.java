@@ -85,6 +85,13 @@ public class NaverLoginBOImpl implements NaverLoginBO{
 		Response response = request.send();
 		return response.getBody();
 	}
+	public String NaverDeleteToken(String access_token) {
+		
+		String NaverDeleteTokenUrl = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id="+CLIENT_ID
+				+"&client_secret="+CLIENT_SECRET+"&access_token="+access_token+"&service_provider=NAVER";
+		//https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=&client_secret=&access_token=&service_provider=NAVER
+		return NaverDeleteTokenUrl;
+	}
 	@Override
 	public String generateRandomString() {
 		return UUID.randomUUID().toString(); //범용 고유 식별자(UUID) 생성 이미지앞에 uuid값을넣어서 고유이미지명 생성할때 썻엇음

@@ -15,5 +15,8 @@ public interface NaverLoginBO {
 	void setSession(HttpSession session,String state);// http session에 데이터 저장
 	
 	String getSession(HttpSession session);//http session에서 데이터 가져오기
+	
+	String NaverDeleteToken(String access_token); //네이버 토큰 삭제(로그아웃,회원탈퇴시 사용)
+	
 	String getUserProfile(OAuth2AccessToken oauthToken) throws IOException;
 }
