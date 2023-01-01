@@ -10,14 +10,7 @@ public class ReservationVO {  //공간 예약하기
 	private String rtstartdate;  //예약시작날짜
 	private String rtstart;  //예약시작시간
 	private String rtend;  //예약종료시간
-	private String rtenddate;  //예약종료날짜
+//	private String rtenddate;  //예약종료날짜
 	private int rtnumber;  //예약인원
 	private int rtstatus;  //예약상태
-	
-	//예약금액view
-	
-	
-	private int TimePrice;  //bcost*(rtend-rtstart) ==> 시간당 금액
-	private int CountPrice;  //ecost*(rtnumber-minn) ==> 인원추가금 / if((rtnumber-minn)<1)
-	private int TotalPrice;  //TimePrice+CountPrice ==> 총 결제 금액
 }

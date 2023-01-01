@@ -1,19 +1,6 @@
 <!-- Login Start -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-<script>
-const sel_menu = function(m_name){
-	fetch(m_name).then(function(response){
-        response.text().then(function(text){
-        $('tab').html(text);
-        $('#selmenu').html(m_name);
-        $('li[id$="Tab"]').removeClass('active');
-        $('#'+m_name+'Tab').addClass('active');
-        })
-    })
-}
-
-</script>
 
 <style>
 * {

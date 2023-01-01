@@ -20,7 +20,7 @@ import com.project.space.domain.Mem_InfoVO;
 import com.project.space.domain.NaverLoginCallbackVO;
 import com.project.space.domain.NaverLoginVO;
 import com.project.space.user.naverlogintest.bo.NaverLoginBO;
-import com.project.space.user.service.UserService;
+import com.project.space.user.service.Mem_InfoService;
 
 import lombok.extern.log4j.Log4j;
 @Controller
@@ -31,7 +31,7 @@ public class GonTestCont {
 	private NaverLoginBO naverLoginBO;
 	
 	@Inject
-	private UserService userService;
+	private Mem_InfoService memberService;
 	
 	@GetMapping("/MyZimm")
 	public String zimmList() {
@@ -67,20 +67,24 @@ public class GonTestCont {
 	}
 	
 	/*네로아 테스트*/
-	@GetMapping("/NaverLogin")
+	//네로아 인증요청 url 반환
+	@GetMapping("/Login")
 	public ModelAndView naverLogin(HttpSession session) {
 		log.info("NaverLogin connect");
-		 /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-        
-        /* 생성한 인증 URL을 View로 전달 */
+        log.info("naverAuthUrl===>"+naverAuthUrl);
+        // 생성한 인증 url을 ajax/Login 뷰로 전달
         return new ModelAndView("ajax/Login", "url", naverAuthUrl);
 	}
 	@GetMapping("/NaverCallback")
 	public ModelAndView naverCallback(HttpSession session,@RequestParam String code, @RequestParam String state) throws Exception{
 		log.info("NaverCallback connect");
+		log.info("NaverCallback code ==>"+code);
+		log.info("NaverCallback state ==>"+state);
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
-
+		//발급받은 토큰 세션저장 테스트
+		session.setAttribute("naver_oauthToken", oauthToken);
+		//---------------------
 		String naverProfileInfo = naverLoginBO.getUserProfile(oauthToken);
 		log.info("check naverCallback try");
 		
@@ -93,11 +97,12 @@ public class GonTestCont {
 		NaverLoginVO nlVO = nlcVO.getResponse();
 		log.info("네이버 로그인 API 프로필정보 ===> "+nlVO);
 		
-		int result = userService.idCheck(nlVO.getId());
+		int result = memberService.idCheck(nlVO.getId());
 		if(result>0) {
-			Mem_InfoVO memInfoVO = userService.getUser(nlVO.getId());
+			Mem_InfoVO memInfoVO = memberService.getUser(nlVO.getId());
 			log.info("id일치"+memInfoVO.getUserid()+"////"+memInfoVO);
 			session.setAttribute("loginUser", memInfoVO);
+			session.setAttribute("snsLoginState", true);
 			return new ModelAndView("redirect:/");
 		}else{
 			//회원가입을위해 Naver Profile 정보를 넘겨준다.
@@ -105,6 +110,24 @@ public class GonTestCont {
 		}
 		//return new ModelAndView("ajax/NaverCallback", "result", nlVO);
 	}
+	//로그아웃or회원탈퇴시 access_token 삭제처리
+	//밑에 코드가 안되는 이유 => 토큰발급받을때 code값은 1회용 근데 code값을 재사용해서 토큰발급을 받지못함
+	//https://developers.naver.com/forum/posts/8844 <<참고링크
+	/*
+	@GetMapping("/NaverDelete")
+	public String naverDelete(HttpSession session,@RequestParam String code, @RequestParam String state) throws Exception{
+		log.info("test");
+		log.info("NaverDelete state값 ==>"+state);
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		String deleteTokenUrl = naverLoginBO.NaverDeleteToken(oauthToken);
+		URL obj = new URL(deleteTokenUrl); // 호출할 url
+        HttpURLConnection con = (HttpURLConnection)obj.openConnection();
+        con.setRequestMethod("GET");
+		
+		session.invalidate();
+		return "ajax/Pages/MyPage";
+	}
+	*/
 	@GetMapping("/NaverDelete")
 	public String naverDelete(HttpSession session) throws Exception{
 		OAuth2AccessToken ReadSessionToken = (OAuth2AccessToken) session.getAttribute("naver_oauthToken");
@@ -136,7 +159,7 @@ public class GonTestCont {
 			return "redirect:ajax/ilgon/NaverJoin";
 		}
 		
-		int n=userService.insertUser(vo);
+		int n=memberService.createUser(vo);
 		//성공하면 home 실패시 뒤로가기
 		String loc=(n>0)?"redirect:/":"redirect:ajax/ilgon/NaverJoin";
 		

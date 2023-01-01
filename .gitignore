@@ -71,4 +71,5 @@ admin.properties
 */webapp/images/
 
 #db 정보 파일 제외
-.propertise
+*.propertise
+*/NaverLoginAPI.properties
