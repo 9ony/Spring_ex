@@ -118,7 +118,7 @@
 					</div>
 					<!-- 세션에 user정보가있으면 로그아웃버튼으로 변경 -->
 					<c:if test="${loginUser eq null }">
-					<a href="javascript:sel_menu('Login')"
+					<a href="${myctx}/Login"
 						class="btn btn-primary py-2 px-4">로그인</a>
 					</c:if>
 					<c:if test="${loginUser ne null }">

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:import url="/Spacetop" charEncoding="utf-8" />
 <style>
 	#mypage_wrap{
 		width:50%;
@@ -55,12 +56,12 @@
 		</tr>
 	</table>
 		<div class="text-center">
-			<button type="button" class="btn btn-primary py-2" onclick="javascript:sel_menu('MyModify')">회원수정</button>
+			<button type="button" class="btn btn-primary py-2" onclick="javascript:location.href='MyModify'">회원수정</button>
 			<button type="button" class="btn btn-danger py-2" data-bs-toggle="modal" data-bs-target="#exampleModal">회원탈퇴</button>
-			<button type="button" class="btn btn-primary py-2" onclick="javascript:sel_menu('Home')">돌아가기</button>
+			<button type="button" class="btn btn-primary py-2" onclick="javascript:histroy.back()">돌아가기</button>
 		</div>
 </div>
-<form class="frm1" action="deleteUser" method="post">
+<form class="frm1" action="/deleteUser" method="post">
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -92,3 +93,4 @@
 	}
 	
 </script>
+<c:import url="/Spacefoot" charEncoding="utf-8" />

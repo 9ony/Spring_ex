@@ -11,8 +11,7 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
-
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/css/**" location="/css/" />
 	<resources mapping="/img/**" location="/img/" />
@@ -29,11 +28,34 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.project.space" />
-	
-	
-	<!-- 단순 뷰이동 처리 -->
-	<!-- <view-controller path="/top" view-name="top"/>
-	<view-controller path="/foot" view-name="foot"/> -->
+	<!-- 인터셉터패키지 컴포넌트스캔 등록 -->
+	<context:component-scan base-package="com.project.interceptor" />
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="UTF-8"/>
+		<beans:property name="maxUploadSize" value="-1"/>
+		<!-- -1로 주면 무제한 업로드 가능 -->
+	</beans:bean>
+	<!-- Interceptor설정 =========================================================== -->
+   <interceptors>
+         <interceptor>
+            <mapping path="/user/**"/>
+            <mapping path="/owner/**"/>
+            <mapping path="/admin/**"/>
+            <beans:bean class="com.project.intercepter.LoginCheckInterceptor"/>
+         </interceptor>
+         <interceptor>
+            <mapping path="/owner/**"/>
+            <mapping path="/admin/**"/>
+            <beans:bean class="com.project.intercepter.OwnerCheckInterceptor"/>
+         </interceptor>
+         <interceptor>
+            <mapping path="/admin/**"/>
+            <beans:bean class="com.project.intercepter.AdminCheckInterceptor"/>
+         </interceptor>
+   </interceptors>
+	<!-- top, foot 매핑 -->
+	<view-controller path="/Spacetop" view-name="/Spacetop"/>
+	<view-controller path="/Spacefoot" view-name="/Spacefoot"/>
 	
 	
 </beans:beans>
