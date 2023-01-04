@@ -1,23 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!-- Login Start -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/Spacetop.jsp" %>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+<%-- <%@ include file="/WEB-INF/views/Spacetop.jsp" %> --%>
+<c:import url="/Spacetop" charEncoding="utf-8"/>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script>
-
-const sel_menu = function(m_name){
-	fetch(m_name).then(function(response){
-              response.text().then(function(text){
-              $('tab').html(text);
-              $('#selmenu').html(m_name);
-              $('li[id$="Tab"]').removeClass('active');
-              $('#'+m_name+'Tab').addClass('active');
-              })
-          })
-	}
-
-
-</script>
 
 <div class="container-xxl py-5">
     <div class="container">
@@ -53,7 +40,7 @@ const sel_menu = function(m_name){
                         <div class="row g-3">
                             <div class="col-12">
                                 <button class="btn btn-primary w-40 py-2" id="btn1">Login</button>
-                                <a href="javascript:sel_menu('Join')" class="btn btn-primary w-40 py-2">Join</a>
+                                <a href="/space/Join" class="btn btn-primary w-40 py-2">Join</a>
                                 <div id="naver_id_login">
                                 	<a href="${url}">
 										<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
@@ -69,4 +56,5 @@ const sel_menu = function(m_name){
     </div>
 </div>
 <!-- Contact End -->
-<%@ include file="/WEB-INF/views/Spacefoot.jsp" %>
+<c:import url="/Spacefoot" charEncoding="utf-8"/>
+<%-- <%@ include file="/WEB-INF/views/Spacefoot.jsp" %> --%>

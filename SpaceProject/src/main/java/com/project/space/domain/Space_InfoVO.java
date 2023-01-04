@@ -24,6 +24,6 @@ public class Space_InfoVO {
 	private String simage2;
 	private String simage3;
 	private String simage4;
-	private String scontents; //공간소개
-	private String srule; //이용규칙
+	private String scontents;
+	private String srule;
 }

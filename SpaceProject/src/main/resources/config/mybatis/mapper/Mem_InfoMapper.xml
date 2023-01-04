@@ -19,9 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from mem_info where userid=#{value} <!-- 파라미터로들어오 value값 -->
 	</select>
 	
-	<select id="findUser" resultType="MemberInfo" parameterType="MemberInfo">
-		select * from mem_info where userid=#{userid} <!-- 파라미터로들어오 value값 -->
-	</select>
+	<!-- <select id="findUser" resultType="MemberInfo" parameterType="MemberInfo">
+		select * from mem_info where userid=#{userid} 파라미터로들어오 value값
+	</select> -->
 	
 	<select id="listUser" resultType="MemberInfo" parameterType="com.project.space.domain.PagingVO">
 		select mem_info.*, decode(status,1,'등록유저',0,'일반유저',-2,'정지회원',-3,'탈퇴회원') statusStr
@@ -32,4 +32,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteUser" parameterType="MemberInfo" > 
 		delete from mem_info where userid=#{userid} and mpwd=#{mpwd}
 	</delete>
+	
 </mapper>

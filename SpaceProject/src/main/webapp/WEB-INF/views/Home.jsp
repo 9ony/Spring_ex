@@ -30,7 +30,7 @@
 }
 
 .margin50 {
-	margin: 0px;
+	margin: 10px;
 }
 
 @import
