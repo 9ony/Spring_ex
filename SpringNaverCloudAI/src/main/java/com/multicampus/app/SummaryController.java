@@ -48,8 +48,8 @@ public class SummaryController {
 	throws Exception
 	{
 		log.info("title==="+title+", content==="+content);
-		String clientId="클라이언트id"; //클라이언트id
-		String clientSecret="시크릿키"; //시크릿키
+		String clientId="v75fempd8s";
+		String clientSecret="IyVW6atlpYgkQEuteKbwVYlcD11jGzmqnE5dTM9d";
 		String urlStr="https://naveropenapi.apigw.ntruss.com/text-summary/v1/summarize";
 		
 		URL url=new URL(urlStr);

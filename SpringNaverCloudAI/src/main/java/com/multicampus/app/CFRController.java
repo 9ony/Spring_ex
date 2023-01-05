@@ -38,26 +38,26 @@ public class CFRController {
 	public Map<String, String>  cfrResult(@RequestParam("image") MultipartFile file, HttpSession ses) {
 		
 		StringBuffer reqStr = new StringBuffer();
-        String clientId = "0xok1o8ptm";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ¾ÆÀÌµğ°ª";
-        String clientSecret = "AbECzqJO1yw9jhtOPJ3Bzu48kIB0oEMUdv2RuPmV";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ½ÃÅ©¸´°ª";
+        String clientId = "0xok1o8ptm";//ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì•„ì´ë””ê°’";
+        String clientSecret = "AbECzqJO1yw9jhtOPJ3Bzu48kIB0oEMUdv2RuPmV";//ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì‹œí¬ë¦¿ê°’";
         Map<String,String> map=new HashMap<>();
         String path=ses.getServletContext().getRealPath("/file");
         File dir=new File(path);
         if(!dir.exists()) {
-        	dir.mkdirs();//¾÷·ÎµåÇÒ file µğ·ºÅä¸® »ı¼º
+        	dir.mkdirs();//ì—…ë¡œë“œí•  file ë””ë ‰í† ë¦¬ ìƒì„±
         }
-        //Ã·ºÎÇÑ ¿øº»ÆÄÀÏ¸í ¾Ë¾Æ³»±â
+        //ì²¨ë¶€í•œ ì›ë³¸íŒŒì¼ëª… ì•Œì•„ë‚´ê¸°
         String fname=file.getOriginalFilename();
         File imgF=new File(path, fname);
         try {
         	
-        	file.transferTo(imgF);//¾÷·Îµå Ã³¸®
+        	file.transferTo(imgF);//ì—…ë¡œë“œ ì²˜ë¦¬
         	
         	
-            String paramName = "image"; // ÆÄ¶ó¹ÌÅÍ¸íÀº image·Î ÁöÁ¤
+            String paramName = "image"; // íŒŒë¼ë¯¸í„°ëª…ì€ imageë¡œ ì§€ì •
             String imgFile =imgF.getAbsolutePath();
             File uploadFile = new File(imgFile);
-            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/celebrity"; // À¯¸íÀÎ ¾ó±¼ ÀÎ½Ä
+            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/celebrity"; // ìœ ëª…ì¸ ì–¼êµ´ ì¸ì‹
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setUseCaches(false);
@@ -71,7 +71,7 @@ public class CFRController {
             OutputStream outputStream = con.getOutputStream();
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"), true);
             String LINE_FEED = "\r\n";
-            // file Ãß°¡
+            // file ì¶”ê°€
             String fileName = uploadFile.getName();
             writer.append("--" + boundary).append(LINE_FEED);
             writer.append("Content-Disposition: form-data; name=\"" + paramName + "\"; filename=\"" + fileName + "\"").append(LINE_FEED);
@@ -92,9 +92,9 @@ public class CFRController {
             /////////////////////////////////
             BufferedReader br = null;
             int responseCode = con.getResponseCode();
-            if(responseCode==200) { // Á¤»ó È£Ãâ
+            if(responseCode==200) { // ì •ìƒ í˜¸ì¶œ
                 br = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
-            } else {  // ¿À·ù ¹ß»ı
+            } else {  // ì˜¤ë¥˜ ë°œìƒ
                 System.out.println("error!!!!!!! responseCode= " + responseCode);
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream(),"UTF-8"));
             }
