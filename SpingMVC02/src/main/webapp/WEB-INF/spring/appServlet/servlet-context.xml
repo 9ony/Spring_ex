@@ -44,6 +44,7 @@
 		<beans:constructor-arg value="C:/myjava/Upload"/>			
 	</beans:bean>
 	<!-- String upDir=new String("C:/myjava/Upload"); -->
+
 	<!-- Interceptor설정 =========================================================== -->
    <interceptors>
          <interceptor>

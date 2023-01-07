@@ -225,6 +225,13 @@
 			<version>1.9.6</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webflux -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webflux</artifactId>
+		    <version>5.2.22.RELEASE</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>

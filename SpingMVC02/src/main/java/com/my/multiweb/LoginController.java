@@ -30,7 +30,7 @@ public class LoginController {
 	*/
 	
 	@PostMapping("/login")
-	public String findUser(HttpSession session ,UserVO user) 
+	public String loginCheck(HttpSession session ,UserVO user) 
 			throws NotUserException
 	{
 		log.info("findUser param ===>"+user);
