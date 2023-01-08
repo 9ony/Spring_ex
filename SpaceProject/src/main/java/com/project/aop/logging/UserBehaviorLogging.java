@@ -1,6 +1,5 @@
 package com.project.aop.logging;
 
-import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -47,7 +45,6 @@ public class UserBehaviorLogging {
 		String str=jp.getSignature().toShortString();
 		long start=System.nanoTime();
 		try {
-			log.info("aroundBLlogging");
 			Object result=jp.proceed();
 			return result;
 		}finally {
@@ -60,22 +57,25 @@ public class UserBehaviorLogging {
 	@Before(value="loggingTargetBL()")
 	public void beforeBLlogging(JoinPoint jp) {
 		Signature sign = jp.getSignature();
-		log.info("beforeBLlogging");
 		log.info("before=========["+sign.toLongString()+"]");
 		Object[] args=jp.getArgs(); //해당 메서드 인자값을 배열에 저장
 		if(args!=null) { //인자값들이 있으면 반복해서 출력 
 			for(Object arg: args) {
-				log.info("파라미터값 ==> "+arg.toString());
+				//log.info("arg==>"+arg);
+				if(arg!=null) {
+					log.info("파라미터값 ==> "+arg.toString());
+				}
+				
 			}
 		}
 	}
 	//네이버BL Aspect
 	@Around(value="loggingTargetNaverBL()")
 	public Object aroundNaverBLlogging(ProceedingJoinPoint jp) throws Throwable{
+		
 		String str=jp.getSignature().toShortString();
 		long start=System.nanoTime();
 		try {
-			log.info("aroundNaverBLlogging");
 			Object result=jp.proceed();
 			return result;
 		}finally {
@@ -84,7 +84,7 @@ public class UserBehaviorLogging {
 			log.info("------------------------------");
 		}
 	}
-	/*
+	
 	//컨트롤러 Aspect
 	@Around(value="loggingTargetCont()")
 	public Object aroundControllerlogging(ProceedingJoinPoint jp) throws Throwable{
@@ -97,51 +97,33 @@ public class UserBehaviorLogging {
 		}
 		String contName = jp.getSignature().getDeclaringType().getSimpleName();
 		String methodName = jp.getSignature().getName();
-		String target = jp.getSourceLocation().getWithinType().getName();
 		String param =""; //파라미터 저장
-		Signature s = jp.getSignature();
 		Map<String,Object> parameter = new HashMap<>(); // 파라미터 저장할 커넥션
 		Object[] args=jp.getArgs();
+		log.info("args toString====>"+args.toString());
+		log.info("args length====>"+args.length);
 		if(args!=null) { //인자값들이 있으면 반복해서 출력 
 			for(Object arg: args) {
-				
+				log.info("arg==>"+arg);
+				if(arg!=null) {
 				param += arg.toString();
+				}
 			}
 		}
 		try {
-			log.info("aroundControllerlogging");
 			parameter.put("date", new Date());
 			parameter.put("userid", userid);
 			parameter.put("controller", contName);
 			parameter.put("methodname", methodName);
-			parameter.put("target", target);
 			parameter.put("param", param);
-			parameter.put("connectpath", request.getRequestURI()); 
-			parameter.put("httpmethod", request.getMethod());	//GET	
-			//{date=Thu Jan 05 11:43:56 KST 2023, connectpath=/space/WEB-INF/views/ajax/Reservation/ReservationMain1.jsp,
-			// controller=ReservationMapper, param=***Schedule [year=2023, month=1, date=5, value=null, schedule=null]
-			//, httpmethod=GET, userid=비회원, methodname=CalbookingInfo, target=com.sun.proxy.$Proxy47}
+			parameter.put("connectpath", request.getRequestURI());
+			parameter.put("httpmethod", request.getMethod());				
 		}catch(Throwable t) {
 			throw t;
 		}
 		Object result = jp.proceed();
 		
-		log.info("test Signature="+s);
 		log.info("Controller Log = "+parameter);
 		return result;
-	}
-	*/
-	//@Before(value="loggingTargetCont()")
-	//public Object aroundControllerlogging2(JoinPoint jp) throws Throwable{
-		
-		
-		
-		//MethodSignature s = (MethodSignature)jp.getSignature();
-		//Method m = s.getMethod();
-		//String methodName = m.getName();
-		//System.out.println("method =====>"+methodName);
-		
-		
-		//return "t";
-	//}	
+	}	
 }
