@@ -16,7 +16,7 @@
 				<li class="nav-item"><a class="nav-link disabled" href="#"><b>호스트관리</b></a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="${myctx}/admin/hostlistform">&nbsp;&nbsp;호스트목록</a></li>
-				<li class="nav-item"><a class="nav-link" href="${myctx}/admin/hostuploadform">&nbsp;&nbsp;등록내역</a></li>
+				<li class="nav-item"><a class="nav-link" href="${myctx}/admin/spacelistform">&nbsp;&nbsp;공간등록내역</a></li>
 				<li class="nav-item"><a class="nav-link" href="#"><b>온라인문의</b></a></li>
 				<li class="nav-item"><a class="nav-link" href="#"><b>정산관리</b></a></li>
 			</ul>
