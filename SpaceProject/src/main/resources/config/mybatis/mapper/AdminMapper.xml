@@ -2,8 +2,10 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.space.user.mapper.AdminMapper">
-	<select id="searchUserByFilter" resultType="MemberInfo" parameterType="map">
+
+<mapper namespace="com.project.space.admin.mapper.AdminMapper">
+
+	<select id="searchUserByFilter" resultType="MemberInquiry" parameterType="map">
 		select * from (
 		select mem_info.*, decode(status,1,'등록유저',0,'일반유저',-2,'정지회원',-3,'탈퇴회원') statusStr,
 		TO_CHAR(sysdate,'YYYY')-substr(birth,0,4) as AGE from mem_info)
@@ -109,4 +111,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 ]]>
 		</if> -->
 	</sql>
+	
+	<select id="getHashTagAll" resultType="HashTag">
+		select * from HashTag
+	</select>
+	
+	<select id="listUser" resultType="MemberInquiry" parameterType="com.project.space.domain.PagingVO">
+		select mem_info.*, decode(status,1,'등록유저',0,'일반유저',-2,'정지회원',-3,'탈퇴회원') statusStr
+		from mem_info order by mdate asc
+	</select>
+	
+	<select id="listSpace" resultType="SpaceInquiry" parameterType="Paging">
+		select s.*, r.rescount from space_info s left outer join 
+		(select snum , count(*) as rescount from reservation group by snum)
+		r on s.snum = r.snum
+	</select>
 </mapper>

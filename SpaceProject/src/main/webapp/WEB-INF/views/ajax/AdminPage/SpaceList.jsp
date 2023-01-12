@@ -52,19 +52,19 @@
 					    태그
 					</button>
 					<div class="dropdown-menu" id="Fmdate">
-					    <a class="dropdown-item" href="#">하이틴</a>
-					    <a class="dropdown-item" href="#">태그2</a>
-					    <a class="dropdown-item" href="#">태그3</a>
+						<c:forEach var="hashtag" items="${hashtag }">
+							<a class="dropdown-item" href="#">${hashtag.h_name }</a>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="spacelist-filter-item">
 					<label>기본비용</label>
 					<button id="FpointAddSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-					    충전 누적포인트
+					    기본비용
 					</button>
 					<div class="dropdown-menu" id="FpointAdd">
-					    <input type="number" id="minFpointAdd" name="minFpointAdd" placeholder="최소누적포인트" onchange="btntextSet('FpointAdd')">~
-					    <input type="number" id="maxFpointAdd" name="maxFpointAdd" placeholder="최대누적포인트" onchange="btntextSet('FpointAdd')">
+					    <input type="number" id="minFpointAdd" name="minFpointAdd" placeholder="최소 기본비용" onchange="btntextSet('FpointAdd')">~
+					    <input type="number" id="maxFpointAdd" name="maxFpointAdd" placeholder="최대 기본비용" onchange="btntextSet('FpointAdd')">
 					    <p>검색할 기본비용 범위를 입력해주세요.</p>
 					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('FpointAdd')">설정</button>
 					</div>
@@ -75,9 +75,21 @@
 					    추가비용
 					</button>
 					<div class="dropdown-menu" id="Frcount">
+					    <input type="number" id="minFrcount" name="minFrcount" placeholder="최소 추가비용" onchange="btntextSet('Frcount')">~
+					    <input type="number" id="maxFrcount" name="maxFrcount" placeholder="최대 추가비용" onchange="btntextSet('Frcount')">
+					    <p>검색할 인원당 추가비용 범위를 입력해주세요.</p>
+					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('Frcount')">설정</button>
+					</div>
+				</div>
+				<div class="spacelist-filter-item">
+					<label>예약횟수</label>
+					<button id="FrcountSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					    예약횟수
+					</button>
+					<div class="dropdown-menu" id="Frcount">
 					    <input type="number" id="minFrcount" name="minFrcount" placeholder="최소 예약횟수" onchange="btntextSet('Frcount')">~
 					    <input type="number" id="maxFrcount" name="maxFrcount" placeholder="최대 예약횟수" onchange="btntextSet('Frcount')">
-					    <p>검색할 인원당 추가비용 범위를 입력해주세요.</p>
+					    <p>검색할 예약횟수 범위를 입력해주세요.</p>
 					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('Frcount')">설정</button>
 					</div>
 				</div>
@@ -108,13 +120,45 @@
 	    		if(res==""||res==null){ //res값이 없을시
 	    			alert("검색결과가 없습니다.");
 	    		}else{
-	    		  showUserList(res);
+	    		  showSpaceList(res);
 	    		}
 	    	},
 	    	error: function (err){
 	    		alert("error"+err.status) //
 	    	}
     	  });
+	}
+	const showSpaceList = function(res){
+		let str=`
+			<table class="table table-bordered mt-3">
+			<tr>
+				<th>공간명</th>
+				<th>호스트</th>
+				<th>등록일</th>
+				<th>인원</th>
+				<th>기본비용</th>
+				<th>추가금</th>
+				<th>주소</th>
+				<th>해시태그</th>
+				<th>예약횟수</th>
+			</tr>`
+			$.each(res,function(i,space){
+			str+=`<tr>
+					<td>\${space.sname}</td>
+					<td>\${space.userid}</td>
+					<td>\${space.sdate}</td>
+					<td>\${space.minn}~\${space.maxn}</td>
+					<td>\${space.bcost}</td>
+					<td>\${space.ecost}</td>
+					<td>\${space.saddr1}<br>
+						\${space.saddr2}
+					</td>
+					<td>\${space.h_code}</td>
+					<td>\${space.rescount}</td>
+				</tr>`
+			});
+			str+=`</table>`;
+		$("#container-spacelist").html(str);
 	}
 </script>
 <%@ include file="/WEB-INF/views/ajax/AdminPage/AdminPageFoot.jsp" %>

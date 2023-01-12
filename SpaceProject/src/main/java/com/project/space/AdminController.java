@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.project.space.domain.Mem_InfoVO;
-import com.project.space.user.service.Mem_InfoService;
+import com.project.space.admin.service.AdminMemberInquiryVO;
+import com.project.space.admin.service.AdminService;
+import com.project.space.admin.service.AdminSpaceInquiryVO;
+import com.project.space.domain.HashtagVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -24,8 +26,9 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/admin")
 public class AdminController {
+	
 	@Inject
-	Mem_InfoService memberservice;
+	private AdminService adminservice;
 	
 	@RequestMapping(value="/AdminHome", method=RequestMethod.GET)
 	public String AdminPage(Model model) {
@@ -58,29 +61,45 @@ public class AdminController {
 	
 	@PostMapping(value="/userlist" , produces = "application/json")
 	@ResponseBody
-	public List<Mem_InfoVO> getUserList(Model m){
-		List<Mem_InfoVO> memArr = memberservice.listUser(null);
+	public List<AdminMemberInquiryVO> getUserList(Model m){
+		List<AdminMemberInquiryVO> memArr = adminservice.listUser(null);
 		log.info("getUserList userArr====>"+memArr);
 		return memArr;
 	}
 	@PostMapping(value="/search" , produces = "application/json")
 	@ResponseBody
-	public List<Mem_InfoVO> getSearchUser(@RequestBody Map<String,String> filter , HttpServletRequest req){
+	public List<AdminMemberInquiryVO> getSearchUser(@RequestBody Map<String,String> filter , HttpServletRequest req , Model m){
 		log.info("test");
 		log.info(filter.get("keyword"));
 		log.info(filter.get("maxFmage"));
 		log.info(filter);
-		List<Mem_InfoVO> memArr = memberservice.searchUserByFilter(filter);
+		List<AdminMemberInquiryVO> memArr = adminservice.searchUserByFilter(filter);
 		log.info(memArr);
-		log.info(memArr.get(0).getMdate());
-		String test = (String)memArr.get(0).getMdate().toString();
-		log.info(test);
+		//log.info(memArr.get(0).getMdate());
+		//String test = (String)memArr.get(0).getMdate().toString();
+		//List<String> mDateToString = new ArrayList<>();
+		//for(int i = 0 ; i < memArr.size(); i++) {
+		//	mDateToString.add(i,memArr.get(i).getMdate().toString());
+		//	log.info("mem.getMdate().toString()===>"+memArr.get(i).getMdate().toString());
+		//}
+		//log.info("mDateToString==>"+mDateToString+"/"+mDateToString.size());
+		//m.addAttribute(mDateToString);
 		return memArr;
 	}
 	//===============공간등록내역조회============================
 	@GetMapping("/spacelistform")
-	public String hostUpload() {
-		
+	public String hostUpload(Model m) {
+		List<HashtagVO> hashtag = adminservice.getHashTagAll();
+		log.info(hashtag);
+		m.addAttribute("hashtag",hashtag);
+		//페이징 이동
 		return "ajax/AdminPage/SpaceList";
+	}
+	@PostMapping(value="/spacelist" , produces = "application/json")
+	@ResponseBody
+	public List<AdminSpaceInquiryVO> getSpaceList(Model m){
+		List<AdminSpaceInquiryVO> spaceArr = adminservice.listSpace(null);
+		log.info("getUserList userArr====>"+spaceArr);
+		return spaceArr;
 	}
 }

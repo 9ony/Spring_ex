@@ -162,7 +162,7 @@
 					<td>\${member.nickname}</td>
 					<td>\${member.userid}</td>
 					<td>\${member.birth}</td>
-					<td><\${member.mdate}</td>
+					<td>\${member.mdate}</td>
 					<td>\${member.hp}</td>
 					<td class="txt\${member.status}">\${member.statusStr}</td>
 					<td>\${member.pointadd}</td>
