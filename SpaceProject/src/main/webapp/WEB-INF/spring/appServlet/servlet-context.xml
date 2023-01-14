@@ -44,20 +44,20 @@
             <mapping path="/user/**"/>
             <mapping path="/owner/**"/>
             <mapping path="/admin/**"/>
-            <beans:bean class="com.project.intercepter.LoginCheckInterceptor"/>
+            <beans:bean class="com.project.interceptor.LoginCheckInterceptor"/>
          </interceptor>
          <interceptor>
             <mapping path="/owner/**"/>
-            <beans:bean class="com.project.intercepter.OwnerCheckInterceptor"/>
+            <beans:bean class="com.project.interceptor.OwnerCheckInterceptor"/>
          </interceptor>
          <interceptor>
             <mapping path="/admin/**"/>
-            <beans:bean class="com.project.intercepter.AdminCheckInterceptor"/>
+            <beans:bean class="com.project.interceptor.AdminCheckInterceptor"/>
          </interceptor>
          <interceptor>
             <mapping path="/login"/>
             <mapping path="/"/>
-            <beans:bean class="com.project.intercepter.HomeDivisionIntercepter"/>
+            <beans:bean class="com.project.interceptor.HomeDivisionIntercepter"/>
          </interceptor>
    </interceptors>
 	<!-- top, foot 매핑 -->

@@ -28,7 +28,7 @@ public class SpaceInfoServiceImp implements SpaceInfoService{
 	@Override
 	public List<Space_InfoVO> selectByPname(String keyword) {
 		// TODO Auto-generated method stub
-		return null;
+		return spaceinfoMapper.selectByPname(keyword);
 	}
 
 	@Override
@@ -38,15 +38,18 @@ public class SpaceInfoServiceImp implements SpaceInfoService{
 	}
 
 	@Override
-	public List<Space_InfoVO> selectByHashTag(String hashTag) {
-		return this.spaceinfoMapper.selectByHashTag(hashTag);
+	public List<Space_InfoVO> selectByHashTag(int h_code) {
+		return this.spaceinfoMapper.selectByHashTag(h_code);
 	}
 
 	@Override
 	public List<Space_InfoVO> getSpaceInfoAll() {
 		return this.spaceinfoMapper.getSpaceInfoAll();
 	}
-
+	@Override
+	public List<Space_InfoVO> getSpaceInfoPageAll(Map<String, String> map){
+		return this.spaceinfoMapper.getSpaceInfoPageAll(map);
+	}
 	@Override
 	public Space_InfoVO selectBySnum(int snum) {
 		return this.spaceinfoMapper.selectBySnum(snum);
@@ -102,7 +105,17 @@ public class SpaceInfoServiceImp implements SpaceInfoService{
 		
 		return this.spaceinfoMapper.selectByuseridSname(map);
 	}
-	
+	@Override
+	public int getCountAny(String keyword) {
+		return this.spaceinfoMapper.getCountAny(keyword);
+	}
+
+	@Override
+	public List<HashtagVO> getHashTagAll() {
+		// TODO Auto-generated method stub
+		return this.spaceinfoMapper.getHashTagAll();
+	}
+
 	@Override
 	public int insertSpaceLike(Heart_LikeVO hlvo) {
 		int res=spaceinfoMapper.selectSpaceLike(hlvo.getSnum());
@@ -128,7 +141,7 @@ public class SpaceInfoServiceImp implements SpaceInfoService{
 		return this.spaceinfoMapper.deleteLike(hnum);
 
 	}
-	
+
 	@Override
 	public int deleteBySname(String userid, String sname) {
 		Map<String,String> map=new HashMap<>();
@@ -138,19 +151,7 @@ public class SpaceInfoServiceImp implements SpaceInfoService{
 		return this.spaceinfoMapper.deleteBySname(map);
 	}
 
-	@Override
-	public int getCountAny(String keyword) {
-		// TODO Auto-generated method stub
-		return this.spaceinfoMapper.getCountAny(keyword);
-	}
 
-	@Override
-	public List<Space_InfoVO> getSpaceInfoPageAll(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return this.spaceinfoMapper.getSpaceInfoPageAll(map);
-	}
-	@Override
-	public List<HashtagVO> getHashTagAll(){
-		return this.spaceinfoMapper.getHashTagAll();
-	}
+
+
 }

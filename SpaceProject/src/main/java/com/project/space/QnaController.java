@@ -11,11 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.intercepter.CommonUtil;
+import com.project.interceptor.CommonUtil;
 import com.project.space.domain.PagingVO;
 import com.project.space.domain.Qna_BoardVO;
 import com.project.space.domain.Space_InfoVO;
@@ -64,7 +65,6 @@ public class QnaController {
 		String loc="space/spaceDetail";
 		String pageNavi=page.getPageNavi(myctx,loc,userAgent);
 		
-		
 		m.addAttribute("pageNavi",pageNavi);
 		
 		return "ajax/spaceDetail/QnaSpace";
@@ -80,6 +80,11 @@ public class QnaController {
 		HttpSession ses=req.getSession();
 		int snum=(int)ses.getAttribute("snum");
 		log.info(snum);
+		
+		String CheckTitle=this.qnaService.checkTitle(qna.getQnum());
+		if(qna.getQtitle()==null || qna.getQtitle().trim().isEmpty()) {
+			qna.setQtitle("[RE]"+CheckTitle);
+		}
 		
 		//유효성 체크 (subject, name, passwd) ==> redirect "write"
 		if(qna.getQtitle()==null || qna.getQcontent()==null || qna.getQpwd()==null ||
@@ -111,17 +116,29 @@ public class QnaController {
 	}
 	
 	@PostMapping("/qnadelete")
-	public int qnaDelete(Model m, HttpServletRequest req, 
+	public String qnaDelete(Model m, HttpServletRequest req, 
 			@RequestParam(defaultValue="0") int qnum, @RequestParam(defaultValue="") String qpwd) {
 		log.info("num: "+qnum+", passwd: "+qpwd);
 		
 		if(qnum==0 || qpwd.isEmpty()) {
-			return 0;
+			return "";
+		}
+		//해당글을 db에서 가져오기
+		Qna_BoardVO vo=this.qnaService.getQna(qnum);
+		if(vo==null) {
+			return util.addMsgBack(m, "존재하지 않는 글입니다");
+		}
+		//비밀번호 일치여부 체크
+		String dbPwd=vo.getQpwd();
+		if(!dbPwd.equals(qpwd)) {  //일치하지 않는다면
+			return util.addMsgBack(m, "비밀번호가 일치하지 않습니다");
 		}
 		//db에서 글 삭제 처리
 		int n=this.qnaService.deleteQna(qnum);
 		
-		return n;
+		String str=(n>0)? "삭제 성공":"삭제 실패";
+		String loc=(n>0)? "javascript:history.back()":"javascript:history.back()";
+		return util.addMsgLoc(m, str, loc);
 	}
 	
 	@PostMapping("/qnaedit")
@@ -147,11 +164,13 @@ public class QnaController {
 	}
 	
 	@PostMapping("/qnarewrite")
-	public String boardRewrite(Model m, @ModelAttribute Qna_BoardVO qvo) {
-		log.info("vo: "+qvo);
-		m.addAttribute("qnum", qvo.getQnum());
-		m.addAttribute("qtitle", qvo.getQtitle());
-		return "ajax/spaceDetail/spaceD";
+	public String boardRewrite(Model m, 
+			@RequestParam(defaultValue="0") int qnum, @RequestParam(defaultValue="") String qtitle) {
+		log.info("========================qnum: "+qnum+", qtitle: "+qtitle);
+		
+		m.addAttribute("qnum", qnum);
+		m.addAttribute("qtitle", qtitle);
+		return "ajax/spaceDetail/qnaRewrite";
 	}
 	
 }

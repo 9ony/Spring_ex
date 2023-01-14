@@ -1,4 +1,4 @@
-package com.project.intercepter;
+package com.project.interceptor;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;

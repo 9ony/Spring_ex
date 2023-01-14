@@ -125,10 +125,10 @@
 		for (var i in param) {
 		    data[param[i].name] = param[i].value;
 		}
-		alert(JSON.stringify(data));
+		//alert(JSON.stringify(data));
 		$.ajax({
 			type:'post',
-			url:'search',
+			url:'searchUser',
 			contentType:'application/json',
 			data: JSON.stringify(data),
 			dataType:'json',
@@ -155,9 +155,10 @@
 				<th>누적포인트</th>
 				<th>현재포인트</th>
 				<th>회원등급</th>
+				<th>예약횟수</th>
 			</tr>`
 			$.each(res,function(i,member){
-			str+=`<tr>
+			str+=`<tr onclick="userHistoryCheck('\${member.userid}')">
 					<td>\${member.mname}</td>
 					<td>\${member.nickname}</td>
 					<td>\${member.userid}</td>
@@ -168,17 +169,54 @@
 					<td>\${member.pointadd}</td>
 					<td>\${member.point}</td>
 					<td>\${member.mrank}</td>
+					<td>\${member.rcount}</td>
 				</tr>`
 			});
 			str+=`</table>`;
 		$("#container-userlist").html(str);
 	}
 	const btntextSet = function(sel){
-		console.log(sel);
+		//console.log(sel);
 		str = $('#min'+sel).val()+"~"+$('#max'+sel).val();
-		console.log(str);
+		//console.log(str);
 		$('#'+sel+'Setbtn').html(str);
 	}
-	
+	const userHistoryCheck = function(userid){
+		alert("userid===>"+userid);
+		let str ="";
+		$.ajax({
+			type:'get',
+			url:'UserHistroyCheck',
+			data:'userid='+userid,
+			dataType:'json',
+			success : function(res){
+				$('#UserHistoryModal').modal();
+				str +=`
+					<tr>
+						<th>공간명</th>
+						<th>해시태그</th>
+						<th>사용금액</th>
+						<th>예약횟수</th>
+					</tr>`
+				$.each(res.historylist,function(i,history){
+				str += `
+					<tr>
+						<td>\${history.sname}</td>
+						<td>\${history.h_name}</td>
+						<td>\${history.sumtp} 원</td>
+						<td>\${history.rcount} 회</td>
+					</tr>
+				`
+				})
+				$('#historyitem').html(str);
+				$('#SumTotalPrice').html("총사용금액은 = " + res.sumtotal + "원");
+			},
+			error : function(err){
+				alert(res);
+			}
+		});
+		
+	}
 </script>
+<%@include file="/WEB-INF/views/ajax/AdminPage/UserHistory.jsp" %> 
 <%@ include file="/WEB-INF/views/ajax/AdminPage/AdminPageFoot.jsp" %>

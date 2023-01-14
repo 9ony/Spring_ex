@@ -24,5 +24,15 @@ public class AdminSpaceInquiryVO {
 	private String simage4;
 	private String scontents;
 	private String srule;
-	private String rescount;
+	private String rescount; //예약횟수
+	
+	public String getRescount() {
+		if(this.rescount==null) {
+			return "0";
+		}else
+			return this.rescount;
+	}
+	public String getSdate() {
+		return this.sdate.substring(0, 10);
+	}
 }

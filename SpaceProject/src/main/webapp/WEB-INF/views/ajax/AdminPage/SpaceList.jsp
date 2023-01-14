@@ -24,61 +24,62 @@
 				<div class="spacelist-filter-bar">
 				<div class="spacelist-filter-item">
 					<label>지역</label>
-					<button id="FmageSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					<button id="FslocalSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					    지  역
 					</button>
-					<div class="dropdown-menu" id="Fsage">
-					    <a class="dropdown-item" href="#">서울</a>
-					    <a class="dropdown-item" href="#">부산</a>
-					    <a class="dropdown-item" href="#">경기도</a>
-					    <a class="dropdown-item" href="#">...</a>
+					<input type="hidden" id="Fslocal" name="Fslocal" value="">
+					<div class="dropdown-menu">
+					    <c:forEach var="addritem" items="${spaceaddr }">
+					    <a class="dropdown-item" href="#" onclick="btnSelectOption('Fslocal','${addritem }')">${addritem }</a>
+					    </c:forEach>
+					    
+					    
 					</div>
 				</div>
 				<div class="spacelist-filter-item">
 					<label>인원</label>
-					<button id="FmrankSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					<button id="FspnSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					    인  원
 					</button>
-					<div class="dropdown-menu" id="Fmrank">
-					    <input type="number" id="minFmrank" name="minFmrank" placeholder="최소등급" onchange="btntextSet('Fmrank')">~
-					    <input type="number" id="maxFmrank" name="maxFmrank" placeholder="최대등급" onchange="btntextSet('Fmrank')">
-					    <p>검색할 인원 범위를 입력해주세요.</p>
-					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('Fmrank')">설정</button>
+					<div class="dropdown-menu">
+					    <input type="number" id="Fspn" name="Fspn" placeholder="인원수" onchange="btntextSet('Fspn')">
+					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('Fspn')">설정</button>
 					</div>
 				</div>
 				<div class="spacelist-filter-item">
 					<label>태그</label>
-					<button id="FmdateSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					<input type="hidden" id="Fshtag" name="Fshtag" value="">
+					<button id="FshtagSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					    태그
 					</button>
-					<div class="dropdown-menu" id="Fmdate">
+					<div class="dropdown-menu">
 						<c:forEach var="hashtag" items="${hashtag }">
-							<a class="dropdown-item" href="#">${hashtag.h_name }</a>
+							<a class="dropdown-item" href="#" onclick="btnSelectOption('Fshtag','${hashtag.h_code}')">${hashtag.h_name }</a>
 						</c:forEach>
 					</div>
 				</div>
 				<div class="spacelist-filter-item">
 					<label>기본비용</label>
-					<button id="FpointAddSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					<button id="FsbcostSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					    기본비용
 					</button>
-					<div class="dropdown-menu" id="FpointAdd">
-					    <input type="number" id="minFpointAdd" name="minFpointAdd" placeholder="최소 기본비용" onchange="btntextSet('FpointAdd')">~
-					    <input type="number" id="maxFpointAdd" name="maxFpointAdd" placeholder="최대 기본비용" onchange="btntextSet('FpointAdd')">
+					<div class="dropdown-menu" id="Fsbcost">
+					    <input type="number" id="minFsbcost" name="minFsbcost" placeholder="최소 기본비용" onchange="btntextSet('Fsbcost')">~
+					    <input type="number" id="maxFsbcost" name="maxFsbcost" placeholder="최대 기본비용" onchange="btntextSet('Fsbcost')">
 					    <p>검색할 기본비용 범위를 입력해주세요.</p>
-					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('FpointAdd')">설정</button>
+					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('Fsbcost')">설정</button>
 					</div>
 				</div>
 				<div class="spacelist-filter-item">
 					<label>추가비용</label>
-					<button id="FrcountSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					<button id="FsecostSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					    추가비용
 					</button>
-					<div class="dropdown-menu" id="Frcount">
-					    <input type="number" id="minFrcount" name="minFrcount" placeholder="최소 추가비용" onchange="btntextSet('Frcount')">~
-					    <input type="number" id="maxFrcount" name="maxFrcount" placeholder="최대 추가비용" onchange="btntextSet('Frcount')">
+					<div class="dropdown-menu" id="Fsecost">
+					    <input type="number" id="minFsecost" name="minFsecost" placeholder="최소 추가비용" onchange="btntextSet('Fsecost')">~
+					    <input type="number" id="maxFsecost" name="maxFsecost" placeholder="최대 추가비용" onchange="btntextSet('Fsecost')">
 					    <p>검색할 인원당 추가비용 범위를 입력해주세요.</p>
-					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('Frcount')">설정</button>
+					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('Fsecost')">설정</button>
 					</div>
 				</div>
 				<div class="spacelist-filter-item">
@@ -90,7 +91,7 @@
 					    <input type="number" id="minFrcount" name="minFrcount" placeholder="최소 예약횟수" onchange="btntextSet('Frcount')">~
 					    <input type="number" id="maxFrcount" name="maxFrcount" placeholder="최대 예약횟수" onchange="btntextSet('Frcount')">
 					    <p>검색할 예약횟수 범위를 입력해주세요.</p>
-					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('Frcount')">설정</button>
+					    <button class="btn btn-sm btn-primary" type="button" onclick="btntextSet('Frescount')">설정</button>
 					</div>
 				</div>
 			</div>
@@ -100,7 +101,7 @@
 					<option value="Fuserid">호스트 아이디</option>
 				</select>
 				<input type="text" id="keyword" name="keyword" style="width:30%">
-				<button type="button" onclick="userlist_search_btn()">검색</button>
+				<button type="button" onclick="spacelist_search_btn()">검색</button>
 			</div>
 		</form>
 		
@@ -127,6 +128,28 @@
 	    		alert("error"+err.status) //
 	    	}
     	  });
+	}
+	const spacelist_search_btn = function(){
+		let param = $('#searchf').serializeArray();
+		var data={};
+		for (var i in param) {
+		    data[param[i].name] = param[i].value;
+		}
+		//alert(JSON.stringify(data));
+		$.ajax({
+			type:'post',
+			url:'searchSpace',
+			contentType:'application/json',
+			data: JSON.stringify(data),
+			dataType:'json',
+			success : function(res){
+				//alert(res);
+				showSpaceList(res);
+			},
+			error: function(err){
+				alert("실패!"+err.status)
+			}
+		});
 	}
 	const showSpaceList = function(res){
 		let str=`
@@ -159,6 +182,20 @@
 			});
 			str+=`</table>`;
 		$("#container-spacelist").html(str);
+	}
+	const btntextSet = function(sel){
+		//console.log(sel);
+		if(sel=='Fspn'){
+			str = $('#'+sel).val();
+		}else{
+			str = $('#min'+sel).val()+"~"+$('#max'+sel).val();
+		}
+		//console.log(str);
+		$('#'+sel+'Setbtn').html(str);
+	}
+	const btnSelectOption = function(sel,str){
+		$('#'+sel).val(str);
+		$('#'+sel+'Setbtn').html(str);
 	}
 </script>
 <%@ include file="/WEB-INF/views/ajax/AdminPage/AdminPageFoot.jsp" %>

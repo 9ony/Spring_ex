@@ -1,4 +1,4 @@
-package com.project.intercepter;
+package com.project.interceptor;
 
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;

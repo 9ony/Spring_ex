@@ -15,4 +15,16 @@ public interface AdminService {
 	public List<AdminMemberInquiryVO> listUser(PagingVO pvo);
 	
 	public List<AdminSpaceInquiryVO> listSpace(PagingVO pvo);
+	
+	public List<String> getSpaceAddr();
+	
+	public List<AdminSpaceInquiryVO> searchSpaceByFilter(Map<String, String> filter);
+	
+	public List<AdminMemberHistoryVO> getUserHistory(String userid);
+
+	public List<AdminMemberInquiryVO> todayJoinMember(String string);
+	
+	public List<AdminSpaceInquiryVO> todayInsertSpace(String string);
+	
+	public List<AdminSpaceInquiryVO> todayPopSpace(String string);
 }

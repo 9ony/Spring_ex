@@ -28,8 +28,8 @@
 	                    geocoder.addressSearch(address, (result, status) =>{
 	                        if(status === daum.maps.services.Status.OK){ //다음map api service가 정상호출됫을대
 	                            const { x, y } = result[0];
-								//alert(result[0].x);
-								//alert(result[0].y);
+								alert(result[0].x);
+								alert(result[0].y);
 	                            resolve({ lat: y, lon: x }) //성공시 object객체에 lat에 y값담기고 lon에 x값담김
 	                        }else{
 	                            reject(); //실패
@@ -60,7 +60,7 @@
 				userid : userid
 			},
 			success : function(data) {
-				alert(JSON.stringify(data));
+				//alert(JSON.stringify(data));
 
 				
 				// h_code 값에 해당하는 option 요소 찾기

@@ -1,5 +1,7 @@
 package com.project.space.admin.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -40,5 +42,48 @@ public class AdminServiceImp implements AdminService{
 	public List<AdminSpaceInquiryVO> listSpace(PagingVO pvo) {
 		// TODO Auto-generated method stub
 		return adminMapper.listSpace(pvo);
+	}
+	
+	@Override
+	public List<AdminSpaceInquiryVO> searchSpaceByFilter(Map<String, String> filter){
+		return adminMapper.searchSpaceByFilter(filter);
+	}
+	
+	@Override
+	public List<String> getSpaceAddr(){
+		List<String> spaceaddr = adminMapper.getSpaceAddr();
+		
+		String[] splitaddr = null ;
+		HashSet<String> local = new HashSet<String>(); //중복데이터 삽입을 방지
+		for(int i =0 ; i<spaceaddr.size();i++) {
+			splitaddr = spaceaddr.get(i).split(" ");
+			local.add(splitaddr[0]);
+		}
+		List<String> list = new ArrayList<>(local); //hashset을 리스트로변환
+		return list;
+	}
+
+	@Override
+	public List<AdminMemberHistoryVO> getUserHistory(String userid) {
+		// TODO Auto-generated method stub
+		return adminMapper.getUserHistory(userid);
+	}
+
+	@Override
+	public List<AdminMemberInquiryVO> todayJoinMember(String string) {
+		// TODO Auto-generated method stub
+		return adminMapper.todayJoinMember(string);
+	}
+
+	@Override
+	public List<AdminSpaceInquiryVO> todayInsertSpace(String string) {
+		// TODO Auto-generated method stub
+		return adminMapper.todayInsertSpace(string);
+	}
+
+	@Override
+	public List<AdminSpaceInquiryVO> todayPopSpace(String string) {
+		// TODO Auto-generated method stub
+		return adminMapper.todayPopSpace(string);
 	}
 }
