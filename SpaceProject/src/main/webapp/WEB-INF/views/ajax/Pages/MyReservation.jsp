@@ -109,6 +109,11 @@
 		</c:forEach>
 		</c:if>
 </div>
+<c:import url="/Spacefoot" charEncoding="utf-8" />
+
+<%@include file="/WEB-INF/views/ajax/spaceDetail/ReviewWrite.jsp" %>
+<%-- <%@include file="/WEB-INF/views/ajax/Reservation/DelReservation.jsp" %> --%>
+
 <script>
 function done(){
 	alert('이용이 완료된 예약으로 취소하실 수 없습니다');
@@ -127,7 +132,3 @@ function DelReservation(rtnum){
 }
 	
 </script>
-<c:import url="/Spacefoot" charEncoding="utf-8" />
-
-<%@include file="/WEB-INF/views/ajax/spaceDetail/ReviewWrite.jsp" %>
-<%-- <%@include file="/WEB-INF/views/ajax/Reservation/DelReservation.jsp" %> --%>

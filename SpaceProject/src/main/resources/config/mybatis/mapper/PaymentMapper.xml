@@ -8,13 +8,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <insert id="insertPayment" parameterType="Payment">
         insert into payment(paynum, imp_uid, merchant_uid, paydate, amount, status, refund_reason, userid)
-        values(payment_seq.currval, #{imp_uid:VARCHAR}, #{merchant_uid}, sysdate, #{amount}, #{status}, #{refund_reason:VARCHAR}, #{userid})
+        values(payment_seq.nextval, #{imp_uid:VARCHAR}, #{merchant_uid}, sysdate, #{amount}, #{status}, #{refund_reason:VARCHAR}, #{userid})
     </insert>
 
 
     <!-- db에서 payment_seq.nextval값을 가져옴 -->
     <select id="getPaynum" resultType="int">
-        select payment_seq.nextval from payment where rownum = 1
+        SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'PAYMENT_SEQ'
     </select>
 
     <select id="getpaymentcount" resultType="int">
