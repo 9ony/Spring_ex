@@ -1,5 +1,5 @@
 package com.space.app.controller;
-
+/*
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class UserTestController {
 	/*
-	//컨트롤러 테스트시에 필요한 객체	
+	//컨트롤러 테스트예제
 	@Inject
 	private WebApplicationContext ctx;
 	
@@ -42,7 +42,8 @@ public class UserTestController {
 	}
 	*/
 
-	//서비스 테스트시에 필요한 객체
+	//서비스단 or mapper쪽만 사용할 경우 예제
+	/*
 	@Inject
 	private Mem_InfoMapper mapper;
 	
@@ -51,8 +52,8 @@ public class UserTestController {
 		Mem_InfoVO vo = mapper.getUser("owner1");
 		log.info("Mem_InfoVO===>"+vo);
 		
-		
+		log.info("getAuthorities===>"+vo.getAuthorities());
 
 	}
-	
-}
+	*/
+//}
