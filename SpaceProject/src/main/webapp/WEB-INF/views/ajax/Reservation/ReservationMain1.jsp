@@ -82,7 +82,7 @@
 					
 					<div class="payment">
 						<!-- <a class="nav-link" href="#paymentModal" data-toggle="modal" onclick="payment()">예약</a> -->
-						<button class="nav-link" id="RPModal" data-toggle="modal" data-target="#paymentModal">예약</button>
+						<button class="nav-link" id="RPModal" data-toggle="modal" >예약</button>
 					</div>
 				</form>
 			</div>
@@ -95,7 +95,7 @@
 	</div>
 </div>
 
-<c:import url="/Spacefoot" charEncoding="utf-8"/>
+
 <!-- 플러그인 javascript 로딩 -->
 <script src="${pageContext.request.contextPath}/js_Reservation/jquery.timepicker.min.js"></script>
 <!-- 플러그인에서 제공해주는 css 로딩 -->
@@ -127,6 +127,14 @@
 	$('#res_endTime').val(rf.rtend.value);
 	$('#res_count').val(rf.btn_pm_count.value);
 } */
+
+function backHome(){
+	window.history.back();
+}
+
+function modal_hide(){
+	$("#paymentModal").hide();
+}
 
 $(function(){
 	$('#RPModal').click(function(e){
@@ -209,15 +217,22 @@ $(function(){
 			cache:false,
 			success:function(res){
 				//alert(JSON.stringify(res));
-				$('#paymentModal').modal();
-				$('#snum').val(res.result.snum);
-				$('#userid').val(res.result.userid);
-				$('#rtstartdate').val(res.result.rtstartdate);
-				$('#totalTime').val(res.result.totalTime);
-				$('#rtstart').val(res.result.rtstart);
-				$('#rtend').val(res.result.rtend);
-				$('#rtnumber').val(res.result.rtnumber);
-				$('#totalprice').val(res.result.totalprice);
+				if(res.result==0){
+					alert('예약할 수 없는 시간입니다');
+					//$('#paymentModal').modal('hide');
+					//location.reload();
+				}else{
+					//$('#paymentModal').modal();
+					$('#paymentModal').show();
+					$('#snum').val(res.result.snum);
+					$('#userid').val(res.result.userid);
+					$('#rtstartdate').val(res.result.rtstartdate);
+					$('#totalTime').val(res.result.totalTime);
+					$('#rtstart').val(res.result.rtstart);
+					$('#rtend').val(res.result.rtend);
+					$('#rtnumber').val(res.result.rtnumber);
+					$('#totalprice').val(res.result.totalprice);
+				}
 			},
 			error:function(err){
 				alert('err: '+err.status);
@@ -227,6 +242,6 @@ $(function(){
 }) //$()
 </script>
 
-
+<c:import url="/Spacefoot" charEncoding="utf-8"/>
 
 <%-- <%@ include file="/WEB-INF/views/Spacefoot.jsp" %> --%>

@@ -31,10 +31,10 @@ public class Mem_InfoServiceImpl implements Mem_InfoService {
 	@Override
 	public int createUser(Mem_InfoVO memvo) {
 		String beforeEncoding = memvo.getMpwd();
-		log.info("�븫�샇�솕�븯湲� �쟾 鍮꾨�踰덊샇 �솗�씤==>"+memvo.getMpwd());
+		log.info("암호화 전 비밀번호==>"+memvo.getMpwd());
 		String afterEncoding = pwencoder.encode(beforeEncoding);
 		memvo.setMpwd(afterEncoding);
-		log.info("�븫�샇�솕�맂吏� 鍮꾨�踰덊샇 �솗�씤==>"+memvo.getMpwd());
+		log.info("암호화 후 비밀번호==>"+memvo.getMpwd());
 		return memberMapper.createUser(memvo);
 	}
 
