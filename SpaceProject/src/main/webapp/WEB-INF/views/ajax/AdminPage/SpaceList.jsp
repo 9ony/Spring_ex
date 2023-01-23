@@ -17,6 +17,9 @@
 .dropdown-menu{
 	padding:5px;
 }
+#container-spacelist{
+	min-height:600px;
+}
 </style>
 <div class="container mt-3" id="spacelist">
 <h1 class="text-center">등록된 공간 목록</h1>
@@ -53,6 +56,7 @@
 					    태그
 					</button>
 					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#" onclick="btnSelectOption('Fshtag','전체')">전체</a>
 						<c:forEach var="hashtag" items="${hashtag }">
 							<a class="dropdown-item" href="#" onclick="btnSelectOption('Fshtag','${hashtag.h_code}')">${hashtag.h_name }</a>
 						</c:forEach>
@@ -176,7 +180,7 @@
 					<td>\${space.saddr1}<br>
 						\${space.saddr2}
 					</td>
-					<td>\${space.h_code}</td>
+					<td>\${space.h_name}</td>
 					<td>\${space.rescount}</td>
 				</tr>`
 			});
