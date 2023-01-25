@@ -3,17 +3,75 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- function taglib -->
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<style>
+.qna_box{
+margin:20px 0px 0px 0px;
+overflow:hidden;
+}
+
+.qlist{
+	background-color:#fdf5e6;
+ 
+
+}
+.qrlist{
+	background-color:#FFEFFF;
+}
+#qna_qnum{
+	font-size:15px;
+font-weight:bolder;
+padding:10px 10px 5px 10px;
+}
+.qd{
+
+	display: inline-block;
+	font-size:15px;
+	font-weight:bolder;
+	padding:0px 10px 2.5px 10px;
+}
+#qna_title{
+	padding:10px;
+	font-weight:bold;
+	display: inline-block;
+}
+#qna_content{
+	display: inline-block;
+}
+
+.user_name{
+	display: flex;
+	font-weight:bolder;
+	padding:0px 10px 5px 10px;
+}
+
+.leftq{
+	display: inline-block;
+	float:right;
+	margin:0px 0px 10px 0px;
+	
+}
+.rewrite_btn{
+	position:relative;
+	top:0px;
+	right:0px;
+}
+
+
+
+</style>
 
 <div id="s_qna">
 <div id="qna_question">
 	<div id="qna_head">
-		<h4>Q&A
+		<h4 class="fa-solid fa-meteor"> Q&A
 			<strong>${paging.totalCount}</strong>
+		
 		</h4>
-		<a class="btn_qna_write">
+	</div>
+	
+	<a class=".btn1 btn btn-primary btn_qna_write">
 			<span onclick="qna_write()">질문 작성하기</span>
 		</a>
-	</div>
 	
 	<div id="body_change_qna">
 	<div class="qna_body">
@@ -33,28 +91,33 @@
 				<li class="qrlist">
 			</c:if>
 		
-				<div class="box">
-					<div id="qna_qnum">${qna.qnum}
-					
+				<div class="qna_box">
+					<div id="qna_qnum"><p class="qd">${qna.qdate}</p>
 					<c:if test="${sdvo.userid eq loginUser.userid}">
 						<c:if test="${qna.qgorder eq 0}">
-							<span class="leftq" onclick="qna_rewrite('${qna.qnum}')">답변 작성하기</span>
+							<span class="leftq btn btn-primary" onclick="qna_rewrite('${qna.qnum}')">답변 작성하기</span>
 						</c:if>
 						<%-- <c:if test="${qna.qgorder>0}">
 							<div onclick="qna_UpdateRewrite()">답변 수정하기</div>
 						</c:if> --%>
 					</c:if>
-					
+					</div>
+					<div class="user_name">
+						<div class="sizes">작성자 :</div>
+						<div class="sizes"> ${qna.userid}</div>	
 					</div>
 					
-					<div class="user_name">${qna.userid}
-						<span class="leftq" onclick="delete_qnum(${qna.qnum},'${qna.qpwd}')">x</span>
-					</div>
 					<div>
-						<p id="qna_title">${qna.qtitle}</p>
-						<p>${qna.qcontent}</p>
-						<p class="qd">${qna.qdate}</p>
+						<h3 id="qna_title">${qna.qtitle}</h3>
 					</div>
+					<div>	
+						<p id="qna_content" class="sizes">${qna.qcontent}</p>
+					</div>
+					
+					
+					
+				
+					<div class="leftq btn btn-danger" onclick="delete_qnum(${qna.qnum},'${qna.qpwd}')">삭제</div>
 				</div>
 			</li>
 		</c:forEach>
@@ -90,29 +153,7 @@
 
 </div>
 
-<style>
-.qlist{
-	background-color:#fdf5e6;
-}
-.qrlist{
-	background-color:#FFEFD5;
-}
-#qna_qnum{
-	font-size: 1px;
-}
-.qd{
-	font-size:10px;
-}
-#qna_title{
-	font-weight:bold;
-}
-.leftq{
-	padding-left:70px;
-}
-.user_name{
-	float:left;
-}
-</style>
+
 
 
 <script>
@@ -133,7 +174,7 @@ const qna_write=function(){
 }
 
 const qna_rewrite=function(qnum){
-	alert(qnum);
+	//alert(qnum);
 	$.ajax({
 		type:'post',
 		url:'/space/spaceDetail/qnarewrite',

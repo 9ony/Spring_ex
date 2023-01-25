@@ -3,15 +3,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:import url="/Spacetop" charEncoding="utf-8" />
+<head>
+<style>
 
+	.container{
+	
+	padding: 0px 100px 0px 100px;
+	
+	}
+	.feed-item>td{
+		width:20%;
+		line-height:100%;
+		vertical-align: middle;
+        text-align: center;
+	}
+	.feed-item>td:last-child{
+		width:60%;
+		vertical-align: middle;
+        text-align: left;
+	}
+	
+
+
+</style>
+</head>
 <div class="container mt-3" style="height:600px;overflow:auto;">
 	<h1 class="text-center">나의 공간 피드백</h1>
-
+<br>
 	<!-- 검색 폼 -->
-	<form name="searchF" action="searchForm" id="searchF" method="post">
+	<form class="search" name="searchF" action="searchForm" id="searchF" method="post">
 		<input type="hidden" id="userid" name="userid" value="${loginUser.userid}">
 		<div class="feedbackList-filter-bar">
-		<div class="feedbackList-filter-item">
+		<span class="feedbackList-filter-item">
 			<button id="FsnumSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 			    공간 선택
 			</button>
@@ -21,8 +44,8 @@
 			    <a class="dropdown-item" href="#" onclick="btnSelectOption('Fsnum','${sArr.snum}')">${sArr.sname}</a>
 			    </c:forEach>
 			</div>
-		</div>
-		<div class="spacelist-filter-item">
+		</span>
+		<span class="spacelist-filter-item">
 			<input type="hidden" id="Freason" name="Freason" value="">
 			<button id="FreasonSetbtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 			    사  유
@@ -32,8 +55,10 @@
 					<a class="dropdown-item" href="#" onclick="btnSelectOption('Freason','${rArr.r_code}')">${rArr.r_content}</a>
 				</c:forEach>
 			</div>
+		</span>
+		<button class="btn btn-outline-primary" type="button" onclick="search_btn()">검색</button>
 		</div>
-		</div>
+		<br>
 		<%-- <select name="SpaceType" style="padding:6px;">
 			<option value="">::공간 선택::</option>
 			<c:if test="${sArr eq null or empty sArr}">
@@ -42,14 +67,16 @@
 			<option value="3" <c:if test="${paging.findType eq 3}">selected</c:if>>글내용</option>
 			</c:if>
 		</select> --%>
-		<button class="btn btn-outline-primary" type="button" onclick="search_btn()">검색</button>
+		
+		
+		
 	</form>
 <!-- ========================================================-->
 <table class="table table-condensed table-striped">
 	<thead>
 		<tr>
-			<th>공간명</th>
-			<th>사유</th>
+			<th colspan="1">공간명</th>
+			<th colspan="1">사유</th>
 			<th>피드백</th>
 		</tr>
 	</thead>
@@ -64,10 +91,10 @@
 	
 	<c:if test="${fArr ne null or not empty fArr}">
 		<c:forEach var="fb" items="${fArr}">
-		<tr>
-			<td>${fb.sname}</td>
-			<td>${fb.r_content}</td>
-			<td>${fb.etc}</td>
+		<tr class="feed-item">
+			<td colspan="1">${fb.sname}</td>
+			<td colspan="1">${fb.r_content}</td>
+			<td colspan="1">${fb.etc}</td>
 		</tr>
 		</c:forEach>
 	</c:if>
