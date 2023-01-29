@@ -267,7 +267,7 @@ public class JYController {
 							        check.setPlusPoint(rtvo.getTotalprice());
 							        int usp=this.reservationService.PlusSpacePoint(check); //호스트 포인트 +
 								}
-								SmsResponseDTO response = smsService.sendSms(messageDto);  //문자 전송
+								//SmsResponseDTO response = smsService.sendSms(messageDto);  //문자 전송
 							}
 							str=(res>0)? "예약이 완료되었습니다":"잔여 포인트를 확인해 주세요";
 							loc=(res>0)? "/space/user/MyReservation":"/space/user/pointAdd";
@@ -303,7 +303,7 @@ public class JYController {
 		        check.setPlusPoint(rtvo.getTotalprice());
 		        int usp=this.reservationService.PlusSpacePoint(check); //호스트 포인트 +
 			}
-			SmsResponseDTO response = smsService.sendSms(messageDto);  //문자 전송
+			//SmsResponseDTO response = smsService.sendSms(messageDto);  //문자 전송
 		}
 		
 		str=(res>0)? "예약이 완료되었습니다":"잔여 포인트를 확인해 주세요";
@@ -373,7 +373,7 @@ public class JYController {
 			check.setPlusPoint(rtvo.getTotalprice());
 	        int usp=this.reservationService.MinusSpacePoint(check); //호스트 포인트 차감
 	        
-			SmsResponseDTO response = smsService.sendSms(messageDto);
+			//SmsResponseDTO response = smsService.sendSms(messageDto);
 			String str="예약이 취소되었습니다";
 			String loc="/space/user/MyReservation";
 			m.addAttribute("message", str);
